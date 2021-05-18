@@ -27,7 +27,7 @@ const baseSlashCommands = [
     title: "header 2",
     element: (
       <span>
-        <NumberSquareTwo /> Header 1
+        <NumberSquareTwo /> Header 2
       </span>
     ),
     command: ({ editor, range }) => {

@@ -15,11 +15,16 @@
     "@tiptap/react": "2.0.0-beta.25",
     "@tiptap/starter-kit": "2.0.0-beta.34",
     "@tiptap/suggestion": "2.0.0-beta.39",
+    "overlayscrollbars": "^1.13.1",
+    "overlayscrollbars-react": "^0.2.2",
     "phosphor-react": "1.2.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-scripts": "4.0.0",
-    "tippy.js": "6.3.1"
+    "roll": "^1.3.1",
+    "sass": "^1.32.13",
+    "tippy.js": "6.3.1",
+    "use-persisted-state": "^0.3.3"
   },
   "devDependencies": {
     "@babel/runtime": "7.13.8",

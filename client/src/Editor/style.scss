@@ -1,37 +1,18 @@
-.highlights {
-  height: 10vh;
-  width: 80vw;
-  display: flex;
-  overflow-x: auto;
-  padding: 2% 5%;
-
-  .actionItem {
-    flex: 0 0 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid blue;
-    margin-right: 8px;
-  }
-}
-
-.mainContent {
-  display: flex;
-  flex-direction: column;
-}
 
 .Editor {
-  width:  80vw;
-  height: 90vh;
-  padding: 5%;
+  width:  100vw;
+  height: 95vh;
+  padding: 5% 5vw;
   outline: none;
-  border: 1px solid #e5e5e5;
-
-  &.ProseMirror-focused {
-    border: 1px solid blue;
-  }
+  overflow-y: scroll;
 
   &.ProseMirror {
+
+    > * {
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+    }
     
     > * + * {
       margin-top: 0.75em;
