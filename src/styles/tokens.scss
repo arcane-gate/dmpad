@@ -1,0 +1,11 @@
+$colors: (
+  "white": #efefef,
+  "gray": #d0d0d0,
+  "black": #222222,
+);
+
+:root {
+  @each $name, $color in $colors {
+    --c-#{$name}: #{$color};
+  }
+}

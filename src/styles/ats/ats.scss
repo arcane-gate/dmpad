@@ -1,0 +1,17 @@
+@import "../tokens";
+
+@function color($key, $dark-mode: false) {
+  $used-map: $colors;
+
+  @if $dark-mode {
+    $used-map: $dark-mode-base-colors;
+  }
+
+  $fetched-color: map-get($used-map, $key);
+
+  @if type-of($fetched-color) == color {
+    @return $fetched-color;
+  } @else {
+    @error "Color `#{$color}` not found.\a Make sure arguments are strings.\a GOOD: `color('yellow')`.\a BAD: `color(yellow)`.\a\a Available options: #{available-names($color-palette-data)}";
+  }
+}

@@ -1,0 +1,21 @@
+.flow {
+  > * + * {
+    margin-top: 16px;
+  }
+}
+
+.flex\[ {
+  display: flex;
+
+  &.fd-c {
+    flex-direction: column;
+  }
+
+  &.ai-c {
+    align-items: center;
+  }
+
+  &.jc-c {
+    justify-content: center;
+  }
+}
