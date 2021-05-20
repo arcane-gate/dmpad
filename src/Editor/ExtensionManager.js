@@ -19,11 +19,9 @@ const configureSlashCommand = (extensions) =>
           ...extensions
             .filter((extension) => extension.slash)
             .map((extension) => extension.slash),
-        ]
-          .filter((item) =>
-            item.title.toLowerCase().startsWith(query.toLowerCase())
-          )
-          .slice(0, 10);
+        ].filter((item) =>
+          item.title.toLowerCase().startsWith(query.toLowerCase())
+        );
       },
       render: () => {
         let reactRenderer;
@@ -64,7 +62,7 @@ const configureSlashCommand = (extensions) =>
     },
   });
 
-const ExtensionManager = (extensions) => {
+const ExtensionManager = (...extensions) => {
   const SlashCommands = configureSlashCommand(extensions);
   const plugins = extensions.map((extension) => {
     if (extension.node) {

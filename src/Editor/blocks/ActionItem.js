@@ -11,9 +11,9 @@ import "./ActionItem.scss";
 
 const Actionitem = () => {
   return (
-    <NodeViewWrapper className="action-item">
+    <NodeViewWrapper className="c-ActionItem">
       <span className="label" contentEditable={false}>
-        <Lightbulb /> Action Item
+        <BulbOutlined />
       </span>
 
       <NodeViewContent className="content" />

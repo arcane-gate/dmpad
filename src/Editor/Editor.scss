@@ -4,7 +4,6 @@
   width: 100vw;
   height: 100vh;
   padding: 5% 5vw;
-  outline: none;
   overflow-x: hidden;
   overflow-y: scroll;
 
@@ -34,8 +33,16 @@
     }
 
     code {
-      background-color: rgba(#616161, 0.1);
-      color: #616161;
+      display: inline-flex;
+      align-items: center;
+      font-family: monospace;
+      font-weight: 600;
+      line-height: 100%;
+      padding: 2px 4px;
+      border-radius: 4px;
+      background-color: rgba(color("red"), 0.2);
+      color: var(--c-red);
+      border: 1px solid var(--c-red);
     }
 
     pre {

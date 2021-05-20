@@ -10,27 +10,34 @@ import { defaultExtensions } from "@tiptap/starter-kit";
 import Highlight from "@tiptap/extension-highlight";
 import Typography from "@tiptap/extension-typography";
 import Link from "@tiptap/extension-link";
+import Image from "@tiptap/extension-image";
 
 /* Extensions */
 import ExtensionManager from "./ExtensionManager";
 import ActionItem from "./blocks/ActionItem";
 import StatBlock from "./blocks/StatBlock";
-import DDBImport from "./blocks/DDBImport.js";
+// import DDBImport from "./blocks/DDBImport.js";
 import DiceNotation from "./blocks/DiceNotation.js";
 import Title from "./blocks/Title.js";
+// Stickers aren't quite working
+// import Sticker from "./blocks/Sticker.js";
+import Emote, { EmojiNode } from "./blocks/Emote.js";
 
 import defaultState from "./defaultState";
 
-const extensions = ExtensionManager([
-  Title,
+const extensions = ExtensionManager(
   ...defaultExtensions(),
+  Title,
   Highlight,
   Typography,
   ActionItem,
   StatBlock,
-  DDBImport,
+  // DDBImport,
   DiceNotation,
-]);
+  Emote,
+  EmojiNode
+  // Sticker
+);
 
 const filename = "starter-doc";
 
