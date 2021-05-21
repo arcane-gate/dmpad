@@ -19,6 +19,8 @@ import StatBlock from "./blocks/StatBlock";
 // import DDBImport from "./blocks/DDBImport.js";
 import DiceNotation from "./blocks/DiceNotation.js";
 import Title from "./blocks/Title.js";
+import CheckList from "./blocks/CheckList.js";
+import CheckItem from "./blocks/CheckItem.js";
 // Stickers aren't quite working
 // import Sticker from "./blocks/Sticker.js";
 import Emote, { EmojiNode } from "./blocks/Emote.js";
@@ -35,7 +37,9 @@ const extensions = ExtensionManager(
   // DDBImport,
   DiceNotation,
   Emote,
-  EmojiNode
+  EmojiNode,
+  CheckList,
+  CheckItem
   // Sticker
 );
 

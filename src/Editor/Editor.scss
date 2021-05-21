@@ -2,10 +2,8 @@
 
 .c-Editor {
   width: 100vw;
-  height: 100vh;
-  padding: 5% 5vw;
+  padding: 5vh 5vw;
   overflow-x: hidden;
-  overflow-y: scroll;
 
   &.ProseMirror {
     > * {

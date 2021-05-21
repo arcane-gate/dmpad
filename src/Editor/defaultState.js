@@ -174,79 +174,87 @@ export default {
       ],
     },
     {
-      type: "bulletList",
+      type: "checkList",
       content: [
         {
-          type: "listItem",
+          type: "checkItem",
+          attrs: { checked: true },
           content: [
             {
               type: "paragraph",
-              content: [{ type: "text", text: "[ ] Checklists" }],
+              content: [{ type: "text", text: "Checklists" }],
             },
           ],
         },
         {
-          type: "listItem",
+          type: "checkItem",
+          attrs: { checked: false },
           content: [
             {
               type: "paragraph",
-              content: [{ type: "text", text: "[ ] Modal styles" }],
+              content: [{ type: "text", text: "Modal styles" }],
             },
           ],
         },
         {
-          type: "listItem",
+          type: "checkItem",
+          attrs: { checked: false },
           content: [
             {
               type: "paragraph",
-              content: [{ type: "text", text: "[ ] Stat Blocks/Imports" }],
+              content: [{ type: "text", text: "Stat Blocks/Imports" }],
             },
           ],
         },
         {
-          type: "listItem",
+          type: "checkItem",
+          attrs: { checked: false },
           content: [
             {
               type: "paragraph",
               content: [
                 {
                   type: "text",
-                  text: "[ ] Modrons - simple widgets that respond to data changes in the document",
+                  text: "Modrons - simple widgets that respond to data changes in the document",
                 },
               ],
             },
           ],
         },
         {
-          type: "listItem",
+          type: "checkItem",
+          attrs: { checked: false },
           content: [
             {
               type: "paragraph",
-              content: [{ type: "text", text: "[ ] Multiple documents" }],
+              content: [{ type: "text", text: "Multiple documents" }],
             },
           ],
         },
         {
-          type: "listItem",
+          type: "checkItem",
+          attrs: { checked: false },
           content: [
             {
               type: "paragraph",
-              content: [{ type: "text", text: "[ ] Tab key binding" }],
+              content: [{ type: "text", text: "Tab key binding" }],
             },
           ],
         },
         {
-          type: "listItem",
+          type: "checkItem",
+          attrs: { checked: false },
           content: [
             {
               type: "paragraph",
-              content: [{ type: "text", text: "[ ] Paid accounts" }],
+              content: [{ type: "text", text: "Paid accounts" }],
             },
             {
-              type: "bulletList",
+              type: "checkList",
               content: [
                 {
-                  type: "listItem",
+                  type: "checkItem",
+                  attrs: { checked: false },
                   content: [
                     {
                       type: "paragraph",
@@ -255,7 +263,8 @@ export default {
                   ],
                 },
                 {
-                  type: "listItem",
+                  type: "checkItem",
+                  attrs: { checked: false },
                   content: [
                     {
                       type: "paragraph",
@@ -264,11 +273,14 @@ export default {
                   ],
                 },
                 {
-                  type: "listItem",
+                  type: "checkItem",
+                  attrs: { checked: false },
                   content: [
                     {
                       type: "paragraph",
-                      content: [{ type: "text", text: "Patron-style system?" }],
+                      content: [
+                        { type: "text", text: "Patron-based payment system?" },
+                      ],
                     },
                   ],
                 },

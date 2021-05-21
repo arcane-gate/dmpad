@@ -1,0 +1,14 @@
+.c-DiceRoller {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  pointer-events: none;
+}
+.roll-button {
+  position: fixed;
+  top: 500px;
+  left: 500px;
+  z-index: 100000;
+}

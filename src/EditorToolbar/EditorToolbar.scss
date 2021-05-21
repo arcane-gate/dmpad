@@ -11,8 +11,10 @@
   justify-content: space-between;
   box-shadow: 2px 4px 4px rgba(color("black"), 0.1);
   border: 1px solid var(--c-gray);
+  background: #fff;
   max-height: 90vh;
-  width: 80px;
+  width: 5vw;
+  max-width: 80px;
   padding: 16px;
   font-family: monospace;
 

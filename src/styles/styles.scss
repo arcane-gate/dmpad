@@ -12,11 +12,10 @@
 }
 
 .AppFrame {
-  overflow: hidden;
+  overflow-x: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
 }
 
 #modal-root {
