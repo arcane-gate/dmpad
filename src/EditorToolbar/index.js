@@ -4,6 +4,8 @@ import {
   SaveOutlined,
   ExportOutlined,
   ImportOutlined,
+  RedoOutlined,
+  UndoOutlined,
 } from "@ant-design/icons";
 import logo from "../logo.svg";
 import "./EditorToolbar.scss";
@@ -86,6 +88,12 @@ const EditorToolbar = ({ autoSaving, editor, filename }) => {
           </button>
           <button onClick={() => setShowImportModal(true)}>
             <ImportOutlined />
+          </button>
+          <button onClick={() => editor.chain().focus().undo().run()}>
+            <UndoOutlined />
+          </button>
+          <button onClick={() => editor.chain().focus().redo().run()}>
+            <RedoOutlined />
           </button>
         </div>
       </div>

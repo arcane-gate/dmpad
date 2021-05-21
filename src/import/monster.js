@@ -1,56 +1,12 @@
 import { defaultExtensions } from "@tiptap/starter-kit";
 import { generateJSON } from "@tiptap/core";
+import { DDB_CONFIG } from "./ddb-config";
 
 export const MONSTER_REGEX =
   /https:\/\/(www.)?dndbeyond.com\/monsters\/([a-zA-Z0-9-]+)/;
 
 // {
 //   "url": "https://www.dndbeyond.com/monsters/tiamat",
-//   "conditionImmunitiesHtml": "Blinded, Charmed, Deafened, Frightened, Poisoned, Stunned",
-//   "sensesHtml": "Darkvision 240 ft., Truesight 120 ft.",
-//   "skillsHtml": "Arcana +17, Religion +17, Perception +26",
-//   "stats": [
-//     {
-//       "statId": 1,
-//       "name": null,
-//       "value": 30
-//     },
-//     {
-//       "statId": 2,
-//       "name": null,
-//       "value": 10
-//     },
-//     {
-//       "statId": 3,
-//       "name": null,
-//       "value": 30
-//     },
-//     {
-//       "statId": 4,
-//       "name": null,
-//       "value": 26
-//     },
-//     {
-//       "statId": 5,
-//       "name": null,
-//       "value": 26
-//     },
-//     {
-//       "statId": 6,
-//       "name": null,
-//       "value": 28
-//     }
-//   ],
-//   "senses": [
-//     {
-//       "senseId": 2,
-//       "notes": "240 ft."
-//     },
-//     {
-//       "senseId": 4,
-//       "notes": "120 ft."
-//     }
-//   ],
 //   "savingThrows": [
 //     {
 //       "statId": 1,
@@ -119,7 +75,6 @@ export const MONSTER_REGEX =
 //   "homebrewStatus": 0,
 //   "id": 21927,
 //   "entityTypeId": 779871897,
-//   "name": "Tiamat",
 //   "alignmentId": 9,
 //   "sizeId": 7,
 //   "typeId": 9,
@@ -169,7 +124,27 @@ export const MONSTER_REGEX =
 //   "languageNote": ""
 // }
 
+const parseStats = (stats) =>
+  stats.map((stat) => ({
+    name: DDB_CONFIG.stats.find((s) => s.id === stat.statId).key,
+    value: stat.value,
+  }));
+
 const processingExtensions = [...defaultExtensions()];
+
+const monsterStats = (stats) => ({
+  type: "attributeBlock",
+  content: [
+    {
+      type: "attributeRow",
+      content: stats.map(({ name, value }) => ({
+        type: "attributeCell",
+        attrs: { name },
+        content: [{ type: "text", text: `${value}` }],
+      })),
+    },
+  ],
+});
 
 export const monsterImport = (data) => {
   return data.map((imported) => {
@@ -185,6 +160,18 @@ export const monsterImport = (data) => {
       imported.legendaryActionsDescription,
       processingExtensions
     ).content;
+    const generatedConditions = generateJSON(
+      imported.conditionImmunitiesHtml,
+      processingExtensions
+    ).content;
+    const generatedSenses = generateJSON(
+      imported.sensesHtml,
+      processingExtensions
+    ).content;
+    const generatedSkills = generateJSON(
+      imported.skillsHtml,
+      processingExtensions
+    ).content;
     return {
       type: "statBlock",
       content: [
@@ -192,10 +179,32 @@ export const monsterImport = (data) => {
           type: "heading",
           attrs: { level: 2 },
           content: [
-            { type: "link", attr: { href: imported.url }, text: imported.name },
+            {
+              type: "text",
+              marks: [{ type: "link", attrs: { href: imported.url } }],
+              text: imported.name,
+            },
           ],
         },
-        { type: "horizontalRule" },
+        monsterStats(parseStats(imported.stats)),
+        {
+          type: "text",
+          text: "Condition Immunities",
+          marks: [{ type: "bold" }],
+        },
+        ...generatedConditions,
+        {
+          type: "text",
+          text: "Senses",
+          marks: [{ type: "bold" }],
+        },
+        ...generatedSenses,
+        {
+          type: "text",
+          text: "Skills",
+          marks: [{ type: "bold" }],
+        },
+        ...generatedSkills,
         generatedActions.length > 0 && {
           type: "heading",
           attrs: { level: 3 },

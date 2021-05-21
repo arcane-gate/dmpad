@@ -1,0 +1,13 @@
+.c-Icon {
+  --icon-size: 24px;
+  display: inline-flex;
+  height: var(--icon-size);
+  width: var(--icon-size);
+  align-items: center;
+  justify-content: center;
+  svg {
+    fill: currentColor;
+    height: 100%;
+    width: 100%;
+  }
+}

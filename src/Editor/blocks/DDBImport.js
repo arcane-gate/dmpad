@@ -1,13 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Sword } from "phosphor-react";
+import Icon from "../../components/Icon";
 
 export default {
   slash: {
     title: "import from ddb",
     element: (
       <span>
-        <Sword /> Import from DDB
+        <Icon name="DragonHead" /> Import from DDB
       </span>
     ),
     command: (props) => {

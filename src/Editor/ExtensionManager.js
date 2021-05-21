@@ -64,13 +64,24 @@ const configureSlashCommand = (extensions) =>
 
 const ExtensionManager = (...extensions) => {
   const SlashCommands = configureSlashCommand(extensions);
-  const plugins = extensions.map((extension) => {
-    if (extension.node) {
-      return extension.node;
+  const plugins = new Set();
+  extensions.forEach((extension) => {
+    if (extension.requires) {
+      extension.requires.forEach((req) => {
+        plugins.add(req);
+      });
     }
-    return extension;
+    if (extension.node) {
+      if (typeof extension.node === "function") {
+        plugins.add(extension.node());
+      } else {
+        plugins.add(extension.node);
+      }
+    } else {
+      plugins.add(extension);
+    }
   });
-  return [SlashCommands, ...plugins];
+  return [SlashCommands, ...Array.from(plugins)];
 };
 
 export default ExtensionManager;

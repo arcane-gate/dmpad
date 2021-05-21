@@ -10,19 +10,24 @@ import { Decoration, DecorationSet } from "prosemirror-view";
 import "./DiceNotation.scss";
 import Roll from "roll";
 
-const roll = new Roll();
+const getRoll = (rollText) => {
+  const roll = new Roll();
+  const parsedRoll = rollText.replace(/\s/gi, "");
+  const { result } = roll.roll(parsedRoll);
+  return result;
+};
 
 /**
  * A regex that matches any string that contains a dice notation
  */
-export const diceRegex = /(?:^|\s)(?<dice>((\d+d\d|\d)+\+?)+)/gi;
+export const diceRegex = /(?:^|[^\d])(?<dice>((\d+d\d+|\d+)\s?\+?\s?)+)/gi;
 
 // export const diceInputRegex = /(?:^|\s)((?:\d+d\d+\+?)+)(?:\s)/gim;
 
 /**
  * A regex that matches an dice notation
  */
-export const diceRegexExact = /^(\d+d\d+\+?)+$/gim;
+export const diceRegexExact = /^((\d+d\d+|\d+)\s?\+?\s?)+$/gim;
 
 export const DiceNotation = Mark.create({
   name: "dice-notation",
@@ -64,7 +69,7 @@ export const DiceNotation = Mark.create({
       doc.descendants((node, pos) => {
         if (node.isText && node.text) {
           for (const match of node.text.matchAll(diceRegex)) {
-            if (match.groups?.dice) {
+            if (match.groups?.dice && isNaN(Number(match.groups.dice))) {
               const diceIndex =
                 (match?.index || 0) + match[0].indexOf(match.groups.dice);
               const diceLen = match.groups.dice.length;
@@ -120,7 +125,7 @@ export const DiceNotation = Mark.create({
               const attrs = this.editor.getAttributes("dice-notation");
               const closest = event.target?.closest(".dice-notation");
               if (!rollText || !closest) return false;
-              const { result } = roll.roll(rollText);
+              const result = getRoll(rollText);
 
               if (event.metaKey || event.ctrlKey) {
                 // closest.replaceContent(result);

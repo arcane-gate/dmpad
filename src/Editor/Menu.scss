@@ -1,0 +1,23 @@
+@import "../styles/ats/ats";
+
+.c-BubbleMenu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--c-white);
+  box-shadow: 1px 1px 4px rgba(color("black"), 0.4);
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+
+    &:hover {
+      background: var(--c-gray);
+    }
+  }
+}

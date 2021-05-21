@@ -3,6 +3,7 @@ import createJsonSaveFile from "../hooks/useJsonSaveFile";
 import "./Editor.scss";
 
 import EditorToolbar from "../EditorToolbar";
+import Menu from "./Menu";
 
 /* tiptap imports */
 import { useEditor, EditorContent } from "@tiptap/react";
@@ -16,7 +17,8 @@ import Image from "@tiptap/extension-image";
 import ExtensionManager from "./ExtensionManager";
 import ActionItem from "./blocks/ActionItem";
 import StatBlock from "./blocks/StatBlock";
-// import DDBImport from "./blocks/DDBImport.js";
+import AttributeBlock from "./blocks/AttributeBlock";
+import DDBImport from "./blocks/DDBImport.js";
 import DiceNotation from "./blocks/DiceNotation.js";
 import Title from "./blocks/Title.js";
 import CheckList from "./blocks/CheckList.js";
@@ -32,6 +34,7 @@ const extensions = ExtensionManager(
   Title,
   Highlight,
   Typography,
+  Link,
   ActionItem,
   StatBlock,
   // DDBImport,
@@ -39,7 +42,8 @@ const extensions = ExtensionManager(
   Emote,
   EmojiNode,
   CheckList,
-  CheckItem
+  CheckItem,
+  AttributeBlock
   // Sticker
 );
 
@@ -66,6 +70,7 @@ const Editor = () => {
 
   return (
     <>
+      <Menu editor={editor} />
       <EditorToolbar
         filename={filename}
         autoSaving={autoSaving}

@@ -1,0 +1,20 @@
+.c-AttributeBlock {
+  margin: 16px 0;
+  padding: 8px 0;
+  border-top: 1px solid var(--c-gray);
+  border-bottom: 1px solid var(--c-gray);
+
+  .c-AttributeBlock-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .c-AttributeBlock-cell {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+    }
+  }
+}

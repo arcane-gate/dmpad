@@ -5,8 +5,13 @@
   padding: 5vh 5vw;
   overflow-x: hidden;
 
+  .react-renderer {
+    display: contents;
+  }
+
   &.ProseMirror {
-    > * {
+    > *,
+    > .react-renderer > * {
       width: 100%;
       max-width: 960px;
       margin: 0 auto;
