@@ -128,8 +128,9 @@ export const DiceNotation = Mark.create({
 
               if (event.metaKey || event.ctrlKey) {
                 // closest.replaceContent(result);
+                alert(rollText + " = " + result);
               } else {
-                // alert(rollText + " = " + result);
+                alert(rollText + " = " + result);
               }
               return false;
             },
