@@ -20,14 +20,16 @@ const getRoll = (rollText) => {
 /**
  * A regex that matches any string that contains a dice notation
  */
-export const diceRegex = /(?:^|[^\d])(?<dice>((\d+d\d+|\d+)\s?\+?\s?)+)/gi;
+export const diceRegex =
+  /(?:^|\s)(?<dice>((\d+d\d+)(\s?(\+|-)\s?)?(\d+d\d+|\d+)(\s?(\+|-)\s?)?))/gi;
 
 // export const diceInputRegex = /(?:^|\s)((?:\d+d\d+\+?)+)(?:\s)/gim;
 
 /**
  * A regex that matches an dice notation
  */
-export const diceRegexExact = /^((\d+d\d+|\d+)\s?\+?\s?)+$/gim;
+export const diceRegexExact =
+  /^(((\d+d\d+)(\s?(\+|-)\s?)?(\d+d\d+|\d+)(\s?(\+|-)\s?)?))$/gim;
 
 export const DiceNotation = Mark.create({
   name: "dice-notation",
@@ -58,10 +60,6 @@ export const DiceNotation = Mark.create({
     return [markPasteRule(diceRegex, this.type)];
   },
 
-  // addInputRules() {
-  //   return [markInputRule(diceInputRegex, this.type)];
-  // },
-
   addProseMirrorPlugins() {
     const plugins = [];
     const findDiceNotations = (doc) => {
@@ -84,8 +82,8 @@ export const DiceNotation = Mark.create({
       return result;
     };
 
-    const diceDecorations = (doc: Node) => {
-      const decorations: any = [];
+    const diceDecorations = (doc) => {
+      const decorations = [];
       findDiceNotations(doc).forEach((dice) => {
         decorations.push(
           Decoration.inline(dice.from, dice.to, {
@@ -121,6 +119,7 @@ export const DiceNotation = Mark.create({
             handleClick: (view, pos, event) => {
               event.preventDefault();
               event.stopPropagation();
+              console.log(view, pos, event);
               const rollText = event.target?.textContent.trim();
               const attrs = this.editor.getAttributes("dice-notation");
               const closest = event.target?.closest(".dice-notation");
@@ -130,7 +129,7 @@ export const DiceNotation = Mark.create({
               if (event.metaKey || event.ctrlKey) {
                 // closest.replaceContent(result);
               } else {
-                alert(rollText + " = " + result);
+                // alert(rollText + " = " + result);
               }
               return false;
             },

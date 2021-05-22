@@ -78,25 +78,21 @@ const EditorToolbar = ({ autoSaving, editor, filename }) => {
   };
   return (
     <div className="c-EditorToolbar">
-      <div>
-        <div>
-          <button onClick={() => setShowAboutModal(true)}>
-            <QuestionOutlined />
-          </button>
-          <button onClick={exportDoc}>
-            <ExportOutlined />
-          </button>
-          <button onClick={() => setShowImportModal(true)}>
-            <ImportOutlined />
-          </button>
-          <button onClick={() => editor.chain().focus().undo().run()}>
-            <UndoOutlined />
-          </button>
-          <button onClick={() => editor.chain().focus().redo().run()}>
-            <RedoOutlined />
-          </button>
-        </div>
-      </div>
+      <button onClick={() => setShowAboutModal(true)}>
+        <QuestionOutlined />
+      </button>
+      <button onClick={exportDoc}>
+        <ExportOutlined />
+      </button>
+      <button onClick={() => setShowImportModal(true)}>
+        <ImportOutlined />
+      </button>
+      <button onClick={() => editor.chain().focus().undo().run()}>
+        <UndoOutlined />
+      </button>
+      <button onClick={() => editor.chain().focus().redo().run()}>
+        <RedoOutlined />
+      </button>
       <div className="c-EditorToolbar-autosave flex[ fd-c ai-c jc-c ]">
         <SaveOutlined /> {autoSaving ? "Saving..." : "Saved"}
       </div>
