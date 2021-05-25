@@ -19,10 +19,10 @@ const reader = new FileReader();
 
 const EditorToolbar = ({
   autoSaving,
-  editor,
   filename,
   currentDocument,
   setCurrentDocument,
+  setShowAccounts,
 }) => {
   const [showAboutModal, setShowAboutModal] = useState(false);
   const [showImportModal, setShowImportModal] = useState(false);

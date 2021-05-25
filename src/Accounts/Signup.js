@@ -3,11 +3,21 @@ import { signup } from "./auth";
 
 const Signup = () => {
   return (
-    <div>
-      <input type="email" />
-      <input type="password" />
-      <input type="password" />
-    </div>
+    <form>
+      <label>
+        Email
+        <input type="email" />
+      </label>
+      <label>
+        Password
+        <input type="password" />
+      </label>
+      <label>
+        Confirm Password
+        <input type="password" />
+      </label>
+      <button type="submit">Sign up</button>
+    </form>
   );
 };
 

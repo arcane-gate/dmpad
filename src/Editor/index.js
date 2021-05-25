@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import "./Editor.scss";
 
-import EditorToolbar from "../EditorToolbar";
 import Menu from "./Menu";
 
 /* tiptap imports */
@@ -70,13 +69,6 @@ const Editor = ({
   return (
     <>
       <Menu editor={editor} />
-      <EditorToolbar
-        filename={filename}
-        autoSaving={autoSaving}
-        editor={editor}
-        currentDocument={currentDocument}
-        setCurrentDocument={setCurrentDocument}
-      />
       <EditorContent editor={editor} />
     </>
   );

@@ -2,6 +2,7 @@ import React from "react";
 import "./styles/styles.scss";
 
 import Editor from "./Editor";
+import EditorToolbar from "./EditorToolbar";
 import ImportModal from "./ImportModal";
 import Accounts from "./Accounts";
 import { useEffect, useState } from "react";
@@ -18,6 +19,7 @@ const DMpad = () => {
   const [currentDocument, setCurrentDocument, autoSaving] =
     useSaveFile(defaultState);
   const [actionBarOpen, setActionBarOpen] = useState(false);
+  const [accountsShow, setAccountsShow] = useState(false);
   const updateSticker = (id) => (sticker) => {
     const { visualLayerContent = [] } = currentDocument;
     const newVisualLayerContent = [...visualLayerContent];
@@ -46,6 +48,13 @@ const DMpad = () => {
   });
   return (
     <div className="DMpad AppFrame">
+      <EditorToolbar
+        filename={filename}
+        autoSaving={autoSaving}
+        currentDocument={currentDocument}
+        setCurrentDocument={setCurrentDocument}
+        setShowAccounts={setAccountsShow}
+      />
       <Editor
         currentDocument={currentDocument}
         setCurrentDocument={setCurrentDocument}
@@ -66,7 +75,7 @@ const DMpad = () => {
         })}
       </div> */}
       <ImportModal />
-      <Accounts />
+      <Accounts show={accountsShow} />
       {actionBarOpen && <ActionBar />}
     </div>
   );
