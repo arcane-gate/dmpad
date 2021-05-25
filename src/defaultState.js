@@ -34,7 +34,7 @@ export default createDocState({
               colons: ":crossed_swords:",
               emoticons: [],
               unified: "2694-fe0f",
-              skin: null,
+              skin: "",
               native: "⚔️",
             },
           },
@@ -57,7 +57,7 @@ export default createDocState({
               colons: ":notebook:",
               emoticons: [],
               unified: "1f4d3",
-              skin: null,
+              skin: "",
               native: "📓",
             },
           },
@@ -67,8 +67,131 @@ export default createDocState({
     },
     {
       type: "heading",
+      attrs: { level: 3 },
+      content: [
+        {
+          type: "text",
+          text: "P.S. This whole document is editable! Click somewhere and start taking notes (dmpad saves all your changes locally)!",
+        },
+      ],
+    },
+    {
+      type: "heading",
       attrs: { level: 2 },
       content: [{ type: "text", text: "Plan your sessions." }],
+    },
+    {
+      type: "actionItem",
+      content: [
+        {
+          type: "text",
+          text: "Use action items to call out notes you need to remember next time.",
+        },
+      ],
+    },
+    { type: "paragraph" },
+    {
+      type: "statBlock",
+      content: [
+        {
+          type: "heading",
+          attrs: { level: 1 },
+          content: [{ type: "text", text: "Track Stats" }],
+        },
+        {
+          type: "paragraph",
+          content: [
+            {
+              type: "text",
+              marks: [{ type: "italic" }],
+              text: "Traumatic Backgrounder, Lawful Weird",
+            },
+          ],
+        },
+        { type: "paragraph" },
+        {
+          type: "attributeBlock",
+          content: [
+            {
+              type: "attributeRow",
+              content: [
+                {
+                  type: "attributeCell",
+                  attrs: { name: "STR" },
+                  content: [{ type: "text", text: "25" }],
+                },
+                {
+                  type: "attributeCell",
+                  attrs: { name: "DEX" },
+                  content: [{ type: "text", text: "25" }],
+                },
+                {
+                  type: "attributeCell",
+                  attrs: { name: "CON" },
+                  content: [{ type: "text", text: "18" }],
+                },
+                {
+                  type: "attributeCell",
+                  attrs: { name: "INT" },
+                  content: [{ type: "text", text: "17" }],
+                },
+                {
+                  type: "attributeCell",
+                  attrs: { name: "WIS" },
+                  content: [{ type: "text", text: "24" }],
+                },
+                {
+                  type: "attributeCell",
+                  attrs: { name: "CHA" },
+                  content: [{ type: "text", text: "35" }],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: "heading",
+          attrs: { level: 2 },
+          content: [{ type: "text", text: "Actions" }],
+        },
+        {
+          type: "paragraph",
+          content: [
+            {
+              type: "text",
+              marks: [{ type: "bold" }, { type: "italic" }],
+              text: "Rock your next session. ",
+            },
+            { type: "text", text: "Use " },
+            { type: "text", marks: [{ type: "bold" }], text: "dmpad" },
+            {
+              type: "text",
+              text: " to rock your next session. May or may not make you the best DM ever.",
+            },
+          ],
+        },
+        { type: "heading", attrs: { level: 1 } },
+      ],
+    },
+    { type: "heading", attrs: { level: 4 } },
+    {
+      type: "descriptiveText",
+      content: [
+        {
+          type: "heading",
+          attrs: { level: 3 },
+          content: [{ type: "text", text: "Use Descriptive Text" }],
+        },
+        {
+          type: "paragraph",
+          content: [
+            {
+              type: "text",
+              text: "Write something to read to your players - describe an item, location, NPC, whatever!",
+            },
+          ],
+        },
+      ],
     },
     {
       type: "heading",
@@ -76,13 +199,18 @@ export default createDocState({
       content: [{ type: "text", text: "Track your improv." }],
     },
     {
-      type: "heading",
-      attrs: { level: 2 },
+      type: "paragraph",
       content: [
         {
           type: "text",
-          text: "Find that pesky NPC you forgot even existed (even if you party didn’t)",
+          text: "Create NPCs, items, locations, monsters and more on the fly, then access them again with a robust mentions system. Search your creations at any time, get a timeline of the previous interactions they’ve had, and link them to secrets and clues easily.",
         },
+      ],
+    },
+    {
+      type: "paragraph",
+      content: [
+        { type: "text", marks: [{ type: "italic" }], text: "Coming soon." },
       ],
     },
     {
@@ -176,12 +304,7 @@ export default createDocState({
     {
       type: "heading",
       attrs: { level: 1 },
-      content: [
-        {
-          type: "text",
-          text: "Things that aren’t built yet, but are on the way…",
-        },
-      ],
+      content: [{ type: "text", text: "And even more on the way…" }],
     },
     {
       type: "checkList",
