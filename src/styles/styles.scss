@@ -7,7 +7,7 @@
 .inner {
   width: 100%;
   height: 100%;
-  max-width: 960px;
+  max-width: var(--reference-size);
   margin: 0 auto;
 }
 
@@ -16,6 +16,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.c-VisualLayer {
+  pointer-events: none;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 #modal-root {

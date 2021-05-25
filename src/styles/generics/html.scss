@@ -1,4 +1,9 @@
+html {
+  font-size: var(--reference-size);
+}
+
 body {
-  font-family: sans-serif;
+  position: relative;
+  font-family: var(--main-font);
   font-size: 14px;
 }

@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import createJsonSaveFile from "../hooks/useJsonSaveFile";
 import "./Editor.scss";
 
 import EditorToolbar from "../EditorToolbar";
@@ -16,6 +15,7 @@ import Image from "@tiptap/extension-image";
 /* Extensions */
 import ExtensionManager from "./ExtensionManager";
 import ActionItem from "./blocks/ActionItem";
+import DescriptiveText from "./blocks/DescriptiveText";
 import StatBlock from "./blocks/StatBlock";
 import AttributeBlock from "./blocks/AttributeBlock";
 import DDBImport from "./blocks/DDBImport.js";
@@ -23,11 +23,10 @@ import DiceNotation from "./blocks/DiceNotation.js";
 import Title from "./blocks/Title.js";
 import CheckList from "./blocks/CheckList.js";
 import CheckItem from "./blocks/CheckItem.js";
+import Placeholder from "./blocks/Placeholder.js";
 // Stickers aren't quite working
 // import Sticker from "./blocks/Sticker.js";
 import Emote, { EmojiNode } from "./blocks/Emote.js";
-
-import defaultState from "./defaultState";
 
 const extensions = ExtensionManager(
   ...defaultExtensions(),
@@ -43,17 +42,17 @@ const extensions = ExtensionManager(
   EmojiNode,
   CheckList,
   CheckItem,
-  AttributeBlock
-  // Sticker
+  AttributeBlock,
+  Placeholder,
+  DescriptiveText
 );
 
-const filename = "starter-doc";
-
-const useSaveFile = createJsonSaveFile(filename);
-
-const Editor = () => {
-  const [currentContent, setCurrentContent, autoSaving] =
-    useSaveFile(defaultState);
+const Editor = ({
+  filename,
+  currentDocument,
+  setCurrentDocument,
+  autoSaving,
+}) => {
   const editor = useEditor({
     extensions,
     editorProps: {
@@ -63,9 +62,9 @@ const Editor = () => {
     },
     onUpdate() {
       const json = this.getJSON();
-      setCurrentContent(json);
+      setCurrentDocument((state) => ({ ...state, content: json }));
     },
-    content: currentContent,
+    content: currentDocument.content,
   });
 
   return (
@@ -75,6 +74,8 @@ const Editor = () => {
         filename={filename}
         autoSaving={autoSaving}
         editor={editor}
+        currentDocument={currentDocument}
+        setCurrentDocument={setCurrentDocument}
       />
       <EditorContent editor={editor} />
     </>

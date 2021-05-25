@@ -4,7 +4,7 @@
   padding: 0;
   min-height: 52px;
   border: 2px solid var(--c-black);
-  margin: 2rem 0;
+  margin: 2em 0;
 
   .label {
     display: flex;
@@ -12,7 +12,7 @@
     justify-content: center;
     background: #fff642;
     font-size: 24px;
-    padding: 8px 1rem;
+    padding: 8px 1em;
     color: var(--c-black);
   }
 
@@ -20,7 +20,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 8px 1rem;
+    padding: 8px 1em;
     border-left: none;
   }
 }

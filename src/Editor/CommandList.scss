@@ -1,6 +1,6 @@
 .items {
   position: relative;
-  border-radius: 0.25rem;
+  border-radius: 8px;
   background: white;
   color: rgba(black, 0.8);
   overflow: hidden;
@@ -13,7 +13,7 @@
   text-align: left;
   background: transparent;
   border: none;
-  padding: 0.2rem 0.5rem;
+  padding: 8px;
   line-height: 24px;
 
   &.is-selected,

@@ -18,7 +18,11 @@ const createJsonSaveFile = (filename, debounce = 1000) => {
         setAutoSaving(false);
       }, 500);
     }, debounce);
-    const updateState = (json) => {
+    const updateState = (update) => {
+      let json = update;
+      if (typeof update === "function") {
+        json = update(jsonState);
+      }
       setJsonState(json);
       debouncedUpdateFileState(json);
     };

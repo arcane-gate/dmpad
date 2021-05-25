@@ -1,4 +1,23 @@
-export default {
+const createDocState = (doc) => {
+  return {
+    visualLayerContent: [
+      // {
+      //   id: "oIHolA4AcN4HCpbkSIB5P",
+      //   position: {
+      //     left: 1111,
+      //     top: 166,
+      //     windowWidth: 1676,
+      //     windowHeight: 877,
+      //   },
+      //   type: "sticker",
+      //   src: "https://imgur.com/bOWzbsl.png",
+      // },
+    ],
+    content: doc,
+  };
+};
+
+export default createDocState({
   type: "doc",
   content: [
     {
@@ -44,15 +63,6 @@ export default {
           },
         },
         { type: "text", text: "." },
-      ],
-    },
-    {
-      type: "actionItem",
-      content: [
-        {
-          type: "text",
-          text: "BTW - this whole document is editable! Click anywhere to start taking notes!",
-        },
       ],
     },
     {
@@ -291,4 +301,4 @@ export default {
       ],
     },
   ],
-};
+});

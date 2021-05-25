@@ -17,8 +17,9 @@ export default {
     Node.create({
       name: "attributeBlock",
       group: "block",
-      content: "attributeRow*",
-      atom: true,
+      content: "attributeRow+",
+      isolating: true,
+      // atom: true,
       parseHTML() {
         return [
           {

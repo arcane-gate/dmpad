@@ -11,7 +11,7 @@ const AttributeCell = ({ node }) => {
   return (
     <NodeViewWrapper as="div" className="c-AttributeBlock-cell">
       <strong contentEditable={false}>{name}</strong>
-      <NodeViewContent className="content" />
+      <NodeViewContent className="content" as="span" />
     </NodeViewWrapper>
   );
 };
@@ -19,7 +19,8 @@ const AttributeCell = ({ node }) => {
 export default Node.create({
   name: "attributeCell",
   group: "block",
-  content: "inline+",
+  content: "text*",
+  isolating: true,
   addAttributes() {
     return {
       name: {

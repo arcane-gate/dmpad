@@ -3,7 +3,7 @@ import { Node, mergeAttributes } from "@tiptap/core";
 export default Node.create({
   name: "attributeRow",
   group: "block",
-  content: "attributeCell",
+  content: "attributeCell*",
   parseHTML() {
     return [
       {

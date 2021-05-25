@@ -119,7 +119,6 @@ export const DiceNotation = Mark.create({
             handleClick: (view, pos, event) => {
               event.preventDefault();
               event.stopPropagation();
-              console.log(view, pos, event);
               const rollText = event.target?.textContent.trim();
               const attrs = this.editor.getAttributes("dice-notation");
               const closest = event.target?.closest(".dice-notation");

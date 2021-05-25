@@ -5,16 +5,13 @@ import {
   NodeViewContent,
 } from "@tiptap/react";
 import React from "react";
-import Icon from "../../components/Icon";
+import { CompassOutlined } from "@ant-design/icons";
 
-import "./StatBlock.scss";
+import "./DescriptiveText.scss";
 
-const StatBlock = () => {
+const DescriptiveText = () => {
   return (
-    <NodeViewWrapper className="stat-block">
-      <span className="label" contentEditable={false}>
-        <Icon name="SwordWound" />
-      </span>
+    <NodeViewWrapper className="c-DescriptiveText">
       <NodeViewContent className="content" />
     </NodeViewWrapper>
   );
@@ -22,7 +19,7 @@ const StatBlock = () => {
 
 export default {
   node: Node.create({
-    name: "statBlock",
+    name: "descriptiveText",
     group: "block",
     content: "block*",
     defaultOptions: {
@@ -32,45 +29,39 @@ export default {
     parseHTML() {
       return [
         {
-          tag: "stat-block",
+          tag: "descriptive-text",
         },
       ];
     },
 
     renderHTML({ HTMLAttributes }) {
-      return [
-        "stat-block",
-        mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
-        0,
-      ];
+      return ["descriptive-text", mergeAttributes(HTMLAttributes), 0];
     },
 
     addNodeView() {
-      return ReactNodeViewRenderer(StatBlock);
+      return ReactNodeViewRenderer(DescriptiveText);
     },
   }),
   slash: {
-    title: "stat block",
+    title: "descriptive text",
     element: (
       <span>
-        <Icon name="SwordWound" /> Stat Block
+        <CompassOutlined /> Descriptive Text
       </span>
     ),
     command: ({ editor, range, props }) => {
       editor
         .chain()
         .focus()
+        .deleteRange(range)
         .insertContentAt(range, [
           {
-            type: "statBlock",
+            type: "descriptiveText",
             attrs: props,
             content: [{ type: "paragraph" }],
           },
         ])
         .run();
-    },
-    allow: ({ editor, range }) => {
-      return editor.can().insertContentAt(range, { type: "statBlock" });
     },
   },
 };

@@ -6,14 +6,22 @@ import {
   ImportOutlined,
   RedoOutlined,
   UndoOutlined,
+  SmileOutlined,
 } from "@ant-design/icons";
 import logo from "../logo.svg";
 import "./EditorToolbar.scss";
 import Modal from "../components/Modal";
+import { nanoid } from "nanoid";
 
 const reader = new FileReader();
 
-const EditorToolbar = ({ autoSaving, editor, filename }) => {
+const EditorToolbar = ({
+  autoSaving,
+  editor,
+  filename,
+  currentDocument,
+  setCurrentDocument,
+}) => {
   const [showAboutModal, setShowAboutModal] = useState(false);
   const [showImportModal, setShowImportModal] = useState(false);
   const [validDoc, setValidDoc] = useState(false);
@@ -23,7 +31,7 @@ const EditorToolbar = ({ autoSaving, editor, filename }) => {
       reader.onload = () => {
         try {
           const contents = JSON.parse(reader.result);
-          editor.commands.setContent(contents);
+          setCurrentDocument(contents);
           setShowImportModal(false);
         } catch (err) {
           setValidDoc(false);
@@ -34,6 +42,29 @@ const EditorToolbar = ({ autoSaving, editor, filename }) => {
   };
   const validateDoc = () => {
     setValidDoc(true);
+  };
+  const addSticker = () => {
+    const referenceSize = getComputedStyle(
+      document.documentElement
+    ).getPropertyValue("--reference-size");
+    setCurrentDocument((state) => {
+      return {
+        ...state,
+        visualLayerContent: [
+          ...state.visualLayerContent,
+          {
+            id: nanoid(),
+            position: {
+              top: 0.5,
+              left: 0.5,
+              width: 200,
+            },
+            type: "sticker",
+            src: "https://imgur.com/bOWzbsl.png",
+          },
+        ],
+      };
+    });
   };
   const importDocModal = showImportModal && (
     <Modal>
@@ -67,7 +98,7 @@ const EditorToolbar = ({ autoSaving, editor, filename }) => {
     </Modal>
   );
   const exportDoc = () => {
-    const file = new Blob([JSON.stringify(editor.view.state.doc)], {
+    const file = new Blob([JSON.stringify(currentDocument)], {
       type: "text/json",
     });
     const objectUrl = window.URL.createObjectURL(file);
@@ -93,6 +124,9 @@ const EditorToolbar = ({ autoSaving, editor, filename }) => {
       <button onClick={() => editor.chain().focus().redo().run()}>
         <RedoOutlined />
       </button>
+      {/* <button onClick={addSticker}>
+        <SmileOutlined />
+      </button> */}
       <div className="c-EditorToolbar-autosave flex[ fd-c ai-c jc-c ]">
         <SaveOutlined /> {autoSaving ? "Saving..." : "Saved"}
       </div>

@@ -1,0 +1,10 @@
+.last-focused-placeholder {
+  position: relative;
+  &:after {
+    content: "Type / for more";
+    position: absolute;
+    top: 2px;
+    left: 4px;
+    color: var(--c-gray-txt);
+  }
+}
