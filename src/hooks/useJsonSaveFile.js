@@ -18,6 +18,9 @@ const createJsonSaveFile = (filename, debounce = 1000) => {
         setAutoSaving(false);
       }, 500);
     }, debounce);
+    if (fileState.content.type !== "doc") {
+      setFileState({ content: fileState });
+    }
     const updateState = (update) => {
       let json = update;
       if (typeof update === "function") {
@@ -26,9 +29,6 @@ const createJsonSaveFile = (filename, debounce = 1000) => {
       setJsonState(json);
       debouncedUpdateFileState(json);
     };
-    if (!fileState.hasOwnProperty("content")) {
-      updateState({ content: fileState });
-    }
     return [jsonState, updateState, autoSaving];
   };
 };
