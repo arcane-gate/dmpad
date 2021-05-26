@@ -6,14 +6,14 @@ const ActionBar = ({ document, setFileList, setFilename, fileList }) => {
   const fileListCommands = fileList.files.map((file) => ({
     name: `Switch to ${file}`,
     args: [],
-    action: (filename) => {
-      setFilename(filename);
+    action: () => {
+      setFilename(file);
     },
   }));
   const newFile = {
     name: "New File...",
     args: ["filename"],
-    action: (filename) => {
+    action: (filename) => () => {
       if (fileList.includes(filename)) {
         return new Error("File already exists!");
       }
@@ -41,7 +41,10 @@ const ActionBar = ({ document, setFileList, setFilename, fileList }) => {
           allContent
             .reduce((acc, content) => {
               if (content.name.includes(search)) {
-                return [...acc, <button>{content.name}</button>];
+                return [
+                  ...acc,
+                  <button onClick={content.action}>{content.name}</button>,
+                ];
               }
               return acc;
             }, [])
