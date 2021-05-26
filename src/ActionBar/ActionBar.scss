@@ -7,13 +7,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   width: 500px;
   transform: translate(-50%, -50%);
   background: #ffffff;
-  height: 56px;
+  min-height: 56px;
   padding: 8px;
   box-shadow: 1px 4px 10px rgba(color("black"), 0.4);
   border: 1px solid var(--c-gray);
+
+  button {
+    width: 100%;
+    background: none;
+    border: none;
+    border-top: 1px solid var(--c-gray);
+  }
 
   input {
     font-size: 18px;

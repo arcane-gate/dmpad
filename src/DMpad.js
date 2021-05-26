@@ -11,11 +11,15 @@ import contextMenu from "./ContextMenu";
 import defaultState from "./defaultState";
 import createJsonSaveFile from "./hooks/useJsonSaveFile";
 import Sticker from "./VisualLayer/Sticker";
+import createPersistedState from "use-persisted-state";
 
-const filename = "starter-doc";
-const useSaveFile = createJsonSaveFile(filename);
+const defaultFilename = "starter-doc";
+const useFileList = createPersistedState("filelist");
 
 const DMpad = () => {
+  const [filename, setFilename] = useState(defaultFilename);
+  const useSaveFile = createJsonSaveFile(filename);
+  const [fileList, setFileList] = useFileList({ files: [defaultFilename] });
   const [currentDocument, setCurrentDocument, autoSaving] =
     useSaveFile(defaultState);
   const [actionBarOpen, setActionBarOpen] = useState(false);
@@ -76,7 +80,14 @@ const DMpad = () => {
       </div> */}
       <ImportModal />
       <Accounts show={accountsShow} />
-      {actionBarOpen && <ActionBar />}
+      {actionBarOpen && (
+        <ActionBar
+          document={currentDocument}
+          fileList={fileList}
+          setFileList={setFileList}
+          setFilename={setFilename}
+        />
+      )}
     </div>
   );
 };
