@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import ReactDOM from "react-dom";
 
 import DMPad from "./DMpad";
-// import DiceRoller from "./DiceRoller";
+import DiceRoller from "./DiceRoller";
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(
@@ -12,10 +12,10 @@ ReactDOM.render(
   rootElement
 );
 
-// const diceElement = document.getElementById("dice-root");
-// ReactDOM.render(
-//   <StrictMode>
-//     <DiceRoller />
-//   </StrictMode>,
-//   diceElement
-// );
+const diceElement = document.getElementById("dice-root");
+ReactDOM.render(
+  <StrictMode>
+    <DiceRoller />
+  </StrictMode>,
+  diceElement
+);

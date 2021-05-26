@@ -1,14 +1,26 @@
+@import "../styles/ats/ats";
 .c-DiceRoller {
   position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100vw;
-  pointer-events: none;
-}
-.roll-button {
-  position: fixed;
-  top: 500px;
-  left: 500px;
-  z-index: 100000;
+  bottom: 16px;
+  right: 16px;
+  width: 300px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 1px solid var(--c-gray);
+  box-shadow: var(--main-shadow);
+  transition: opacity 0.5s;
+  opacity: 0;
+  cursor: pointer;
+
+  .c-DiceRoller-anim {
+    height: 100%;
+
+    table {
+      $size: 4px;
+      font-size: $size !important;
+      line-height: $size !important;
+    }
+  }
 }

@@ -49,6 +49,6 @@
     background: #ffffff;
     padding: 32px;
     border-radius: 2px;
-    box-shadow: 5px 5px 10px rgba(#000, 0.5);
+    box-shadow: var(--main-shadow);
   }
 }

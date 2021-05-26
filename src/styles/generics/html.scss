@@ -4,6 +4,41 @@ html {
 
 body {
   position: relative;
-  font-family: var(--main-font);
+  font-family: var(--ui-font);
   font-size: 14px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  min-width: 400px;
+
+  > * + * {
+    margin-top: 0.75em;
+  }
+
+  label {
+    display: flex;
+    flex-direction: column;
+
+    input {
+      height: 35px;
+    }
+  }
+}
+
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  background: var(--c-light-gray);
+  color: var(--c-black);
+  border: 1px solid var(--c-gray);
+  cursor: pointer;
+  box-shadow: none;
+
+  &:hover {
+    box-shadow: var(--main-shadow);
+  }
 }

@@ -7,11 +7,13 @@ import {
   RedoOutlined,
   UndoOutlined,
   SmileOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import logo from "../logo.svg";
 import "./EditorToolbar.scss";
 import Modal from "../components/Modal";
 import { nanoid } from "nanoid";
+import Tippy from "@tippyjs/react";
 
 const reader = new FileReader();
 
@@ -109,27 +111,35 @@ const EditorToolbar = ({
   };
   return (
     <div className="c-EditorToolbar">
-      <button onClick={() => setShowAboutModal(true)}>
-        <QuestionOutlined />
-      </button>
-      <button onClick={exportDoc}>
-        <ExportOutlined />
-      </button>
-      <button onClick={() => setShowImportModal(true)}>
-        <ImportOutlined />
-      </button>
-      <button onClick={() => editor.chain().focus().undo().run()}>
-        <UndoOutlined />
-      </button>
-      <button onClick={() => editor.chain().focus().redo().run()}>
-        <RedoOutlined />
-      </button>
+      {/* <Tippy interactive={true} content="Account" placement="right">
+        <button onClick={() => setShowAccounts(true)}>
+          <UserOutlined />
+        </button>
+      </Tippy> */}
+      <Tippy interactive={true} content="Export" placement="right">
+        <button onClick={exportDoc}>
+          <ExportOutlined />
+        </button>
+      </Tippy>
+      <Tippy interactive={true} content="Import" placement="right">
+        <button onClick={() => setShowImportModal(true)}>
+          <ImportOutlined />
+        </button>
+      </Tippy>
       {/* <button onClick={addSticker}>
         <SmileOutlined />
       </button> */}
       <div className="c-EditorToolbar-autosave flex[ fd-c ai-c jc-c ]">
         <SaveOutlined /> {autoSaving ? "Saving..." : "Saved"}
       </div>
+      <Tippy interactive={true} content="About" placement="right">
+        <button
+          className="flex[ fd-c ai-c jc-c ]"
+          onClick={() => setShowAboutModal(true)}
+        >
+          <QuestionOutlined />
+        </button>
+      </Tippy>
       {aboutModal}
       {importDocModal}
     </div>

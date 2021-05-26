@@ -26,6 +26,9 @@ const createJsonSaveFile = (filename, debounce = 1000) => {
       setJsonState(json);
       debouncedUpdateFileState(json);
     };
+    if (!fileState.hasOwnProperty("content")) {
+      updateState({ content: fileState });
+    }
     return [jsonState, updateState, autoSaving];
   };
 };

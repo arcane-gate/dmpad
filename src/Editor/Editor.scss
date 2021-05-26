@@ -4,6 +4,7 @@
   width: 100vw;
   padding: 5vh 5vw;
   overflow-x: hidden;
+  font-family: var(--editor-font);
 
   > .react-renderer .react-renderer {
     // non-top level renderer elements should behave as their children
