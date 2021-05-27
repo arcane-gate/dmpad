@@ -111,11 +111,11 @@ const EditorToolbar = ({
   };
   return (
     <div className="c-EditorToolbar">
-      {/* <Tippy interactive={true} content="Account" placement="right">
+      <Tippy interactive={true} content="Account" placement="right">
         <button onClick={() => setShowAccounts(true)}>
           <UserOutlined />
         </button>
-      </Tippy> */}
+      </Tippy>
       <Tippy interactive={true} content="Export" placement="right">
         <button onClick={exportDoc}>
           <ExportOutlined />

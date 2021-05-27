@@ -1,17 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import classNames from "classnames";
 import Login from "./Login";
+import User from "./User";
 import Signup from "./Signup";
 import Modal from "../components/Modal";
 import "./Accounts.scss";
+import { currentUser } from "./auth";
+import { LoadingOutlined } from "@ant-design/icons";
 
-const Accounts = ({ tab = "signup", show = false }) => {
+const Accounts = ({ tab = "login", show = false, hideModal }) => {
   const [selectedTab, setSelectedTab] = useState(tab);
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    currentUser().then((user) => {
+      setLoading(false);
+      setUser(user);
+    });
+  }, []);
   return (
     show && (
       <Modal>
         <div className="c-AccountsModal">
-          <div className="c-AccountsModal-tabs">
+          {/* <div className="c-AccountsModal-tabs">
             <button
               onClick={() => setSelectedTab("signup")}
               className={classNames({ active: selectedTab === "signup" })}
@@ -24,9 +35,11 @@ const Accounts = ({ tab = "signup", show = false }) => {
             >
               Login
             </button>
-          </div>
-          {selectedTab === "login" && <Login />}
-          {selectedTab === "signup" && <Signup />}
+          </div> */}
+          {user && <User user={user} close={hideModal} />}
+          {loading && <LoadingOutlined />}
+          {!user && selectedTab === "login" && <Login />}
+          {/* {selectedTab === "signup" && <Signup />} */}
         </div>
       </Modal>
     )

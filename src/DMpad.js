@@ -79,7 +79,7 @@ const DMpad = () => {
         })}
       </div> */}
       <ImportModal />
-      <Accounts show={accountsShow} />
+      <Accounts show={accountsShow} hideModal={() => setAccountsShow(false)} />
       {actionBarOpen && (
         <ActionBar
           document={currentDocument}
