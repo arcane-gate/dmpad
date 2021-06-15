@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef } from 'react';
 import {
   QuestionOutlined,
   SaveOutlined,
@@ -8,12 +8,12 @@ import {
   UndoOutlined,
   SmileOutlined,
   UserOutlined,
-} from "@ant-design/icons";
-import logo from "../logo.svg";
-import "./EditorToolbar.scss";
-import Modal from "../components/Modal";
-import { nanoid } from "nanoid";
-import Tippy from "@tippyjs/react";
+} from '@ant-design/icons';
+import logo from '../logo.svg';
+import './EditorToolbar.scss';
+import Modal from '../components/Modal';
+import { nanoid } from 'nanoid';
+import Tippy from '@tippyjs/react';
 
 const reader = new FileReader();
 
@@ -48,7 +48,7 @@ const EditorToolbar = ({
   const addSticker = () => {
     const referenceSize = getComputedStyle(
       document.documentElement
-    ).getPropertyValue("--reference-size");
+    ).getPropertyValue('--reference-size');
     setCurrentDocument((state) => {
       return {
         ...state,
@@ -61,8 +61,8 @@ const EditorToolbar = ({
               left: 0.5,
               width: 200,
             },
-            type: "sticker",
-            src: "https://imgur.com/bOWzbsl.png",
+            type: 'sticker',
+            src: 'https://imgur.com/bOWzbsl.png',
           },
         ],
       };
@@ -74,7 +74,7 @@ const EditorToolbar = ({
         <h1>Import a file...</h1>
         <form>
           <input type="file" ref={uploadDocInput} onChange={validateDoc} />
-          {validDoc ? "Looks good!" : "Oops, looks like that file is invalid"}
+          {validDoc ? 'Looks good!' : 'Oops, looks like that file is invalid'}
         </form>
         <button disabled={!validDoc} onClick={importDoc}>
           import
@@ -85,7 +85,7 @@ const EditorToolbar = ({
   );
   const aboutModal = showAboutModal && (
     <Modal>
-      <div className="c-EditorToolbar-aboutModal flow">
+      <div className="c-EditorToolbar-aboutModal flow flex[ ai-c fd-c ]">
         <img src={logo} alt="Logo" className="logo" />
         <h1>dmpad</h1>
         <p>
@@ -101,16 +101,24 @@ const EditorToolbar = ({
   );
   const exportDoc = () => {
     const file = new Blob([JSON.stringify(currentDocument)], {
-      type: "text/json",
+      type: 'text/json',
     });
     const objectUrl = window.URL.createObjectURL(file);
-    const a = document.createElement("a");
+    const a = document.createElement('a');
     a.href = objectUrl;
     a.download = `${filename}.json`;
     a.click();
   };
   return (
     <div className="c-EditorToolbar">
+      <Tippy interactive={true} content="About" placement="right">
+        <button
+          className="flex[ fd-c ai-c jc-c ] nopad"
+          onClick={() => setShowAboutModal(true)}
+        >
+          <img src={logo} className="logo" />
+        </button>
+      </Tippy>
       <Tippy interactive={true} content="Account" placement="right">
         <button onClick={() => setShowAccounts(true)}>
           <UserOutlined />
@@ -130,16 +138,8 @@ const EditorToolbar = ({
         <SmileOutlined />
       </button> */}
       <div className="c-EditorToolbar-autosave flex[ fd-c ai-c jc-c ]">
-        <SaveOutlined /> {autoSaving ? "Saving..." : "Saved"}
+        <SaveOutlined /> {autoSaving ? 'Saving...' : 'Saved'}
       </div>
-      <Tippy interactive={true} content="About" placement="right">
-        <button
-          className="flex[ fd-c ai-c jc-c ]"
-          onClick={() => setShowAboutModal(true)}
-        >
-          <QuestionOutlined />
-        </button>
-      </Tippy>
       {aboutModal}
       {importDocModal}
     </div>

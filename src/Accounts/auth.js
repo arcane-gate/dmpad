@@ -3,26 +3,15 @@ import { SUPABASE_KEY, SUPABASE_URL } from "./config";
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-export const forgotPass = (email) =>
-  supabase.auth.api.resetPasswordForEmail(email);
+export const magic = async (email) => await supabase.auth.signIn({
+  email
+});
 
-export const signup = (email, password) =>
-  supabase.auth.signUp({
-    email,
-    password,
-  });
-
-export const login = (email, password) =>
-  supabase.auth.signIn({
-    email,
-    password,
-  });
-
-export const loginWithTwitter = () =>
-  supabase.auth.signIn({
+export const loginWithTwitter = async () =>
+  await supabase.auth.signIn({
     provider: "twitter",
   });
 
-export const logout = () => supabase.auth.signOut();
+export const logout = async () => await supabase.auth.signOut();
 
-export const currentUser = () => Promise.resolve(supabase.auth.user());
+export const currentUser = () => supabase.auth.user();

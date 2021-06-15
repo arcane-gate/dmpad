@@ -6,6 +6,11 @@ body {
   position: relative;
   font-family: var(--ui-font);
   font-size: 14px;
+  color: var(--text-color);
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--header-font);
 }
 
 form {

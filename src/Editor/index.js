@@ -1,31 +1,32 @@
-import { useState, useEffect } from "react";
-import "./Editor.scss";
+import { useState, useEffect } from 'react';
+import './Editor.scss';
+import { isEqual } from 'lodash';
 
-import Menu from "./Menu";
+import Menu from './Menu';
 
 /* tiptap imports */
-import { useEditor, EditorContent } from "@tiptap/react";
-import { defaultExtensions } from "@tiptap/starter-kit";
-import Highlight from "@tiptap/extension-highlight";
-import Typography from "@tiptap/extension-typography";
-import Link from "@tiptap/extension-link";
-import Image from "@tiptap/extension-image";
+import { useEditor, EditorContent } from '@tiptap/react';
+import { defaultExtensions } from '@tiptap/starter-kit';
+import Highlight from '@tiptap/extension-highlight';
+import Typography from '@tiptap/extension-typography';
+import Link from '@tiptap/extension-link';
+import Image from '@tiptap/extension-image';
 
 /* Extensions */
-import ExtensionManager from "./ExtensionManager";
-import ActionItem from "./blocks/ActionItem";
-import DescriptiveText from "./blocks/DescriptiveText";
-import StatBlock from "./blocks/StatBlock";
-import AttributeBlock from "./blocks/AttributeBlock";
-import DDBImport from "./blocks/DDBImport.js";
-import DiceNotation from "./blocks/DiceNotation.js";
-import Title from "./blocks/Title.js";
-import CheckList from "./blocks/CheckList.js";
-import CheckItem from "./blocks/CheckItem.js";
-import Placeholder from "./blocks/Placeholder.js";
+import ExtensionManager from './ExtensionManager';
+import ActionItem from './blocks/ActionItem';
+import DescriptiveText from './blocks/DescriptiveText';
+import StatBlock from './blocks/StatBlock';
+import AttributeBlock from './blocks/AttributeBlock';
+import DDBImport from './blocks/DDBImport.js';
+import DiceNotation from './blocks/DiceNotation.js';
+import Title from './blocks/Title.js';
+import CheckList from './blocks/CheckList.js';
+import CheckItem from './blocks/CheckItem.js';
+import Placeholder from './blocks/Placeholder.js';
 // Stickers aren't quite working
 // import Sticker from "./blocks/Sticker.js";
-import Emote, { EmojiNode } from "./blocks/Emote.js";
+import Emote, { EmojiNode } from './blocks/Emote.js';
 
 const extensions = ExtensionManager(
   ...defaultExtensions(),
@@ -56,7 +57,7 @@ const Editor = ({
     extensions,
     editorProps: {
       attributes: {
-        class: "c-Editor",
+        class: 'c-Editor',
       },
     },
     onUpdate() {
@@ -65,6 +66,16 @@ const Editor = ({
     },
     content: currentDocument.content,
   });
+
+  useEffect(() => {
+    if (editor) {
+      const json = editor.getJSON();
+      if (!isEqual(json, currentDocument.content)) {
+        console.log(json);
+        editor.commands.setContent(currentDocument.content);
+      }
+    }
+  }, [currentDocument]);
 
   return (
     <>

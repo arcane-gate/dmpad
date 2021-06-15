@@ -1,6 +1,7 @@
-import React from "react";
+import React from 'react';
+import { currentUser } from '../Accounts/auth';
 
 const EditorSidebar = ({ currentContent }) => {
-  console.log(currentContent);
-  return <div className="c-EditorSidebar"></div>;
+  const user = currentUser();
+  return <div className="c-EditorSidebar">{user.email}</div>;
 };

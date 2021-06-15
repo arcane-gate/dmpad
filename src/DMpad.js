@@ -1,29 +1,61 @@
-import React from "react";
-import "./styles/styles.scss";
+import React from 'react';
+import './styles/styles.scss';
 
-import Editor from "./Editor";
-import EditorToolbar from "./EditorToolbar";
-import ImportModal from "./ImportModal";
-import Accounts from "./Accounts";
-import { useEffect, useState } from "react";
-import ActionBar from "./ActionBar";
-import contextMenu from "./ContextMenu";
-import defaultState from "./defaultState";
-import createJsonSaveFile from "./hooks/useJsonSaveFile";
-import Sticker from "./VisualLayer/Sticker";
-import createPersistedState from "use-persisted-state";
+import Editor from './Editor';
+import EditorToolbar from './EditorToolbar';
+import ImportModal from './ImportModal';
+import Accounts from './Accounts';
+import { useEffect, useState } from 'react';
+import ActionBar from './ActionBar';
+import contextMenu from './ContextMenu';
+import defaultState from './defaultState';
+import createJsonSaveFile from './hooks/useJsonSaveFile';
+import Sticker from './VisualLayer/Sticker';
+import createPersistedState from 'use-persisted-state';
+import Modal from './components/Modal';
 
-const defaultFilename = "starter-doc";
-const useFileList = createPersistedState("filelist");
+
+const defaultFilename = 'starter-doc';
+const useFileList = createPersistedState('filelist');
+
+const NewFileModal = ({ shown, close, createFile }) => {
+  const [newFileName, setNewFileName] = useState('');
+  const changeName = (e) => {
+    e.preventDefault();
+    setNewFileName(e.target.value);
+  };
+  return (
+    shown && (
+      <Modal>
+        <div className="flow">
+          <label>
+            New File Name:
+            <input
+              type="text"
+              autoFocus={true}
+              value={newFileName}
+              onChange={changeName}
+            />
+          </label>
+          <div className="flex[ ai-c jc-sb ]">
+          <button onClick={createFile}>Create</button>
+          <button onClick={close}>Close</button>
+          </div>
+        </div>
+      </Modal>
+    )
+  );
+};
 
 const DMpad = () => {
   const [filename, setFilename] = useState(defaultFilename);
   const useSaveFile = createJsonSaveFile(filename);
   const [fileList, setFileList] = useFileList({ files: [defaultFilename] });
-  const [currentDocument, setCurrentDocument, autoSaving] =
+  const [currentDocument, setCurrentDocument, autoSaving, loading] =
     useSaveFile(defaultState);
   const [actionBarOpen, setActionBarOpen] = useState(false);
   const [accountsShow, setAccountsShow] = useState(false);
+  const [newFileModalShown, setNewFileModalShown] = useState(false);
   const updateSticker = (id) => (sticker) => {
     const { visualLayerContent = [] } = currentDocument;
     const newVisualLayerContent = [...visualLayerContent];
@@ -37,7 +69,7 @@ const DMpad = () => {
     });
   };
   const handleKeys = (event) => {
-    if (event.key === "k" && (event.metaKey || event.ctrlKey)) {
+    if (event.key === 'k' && (event.metaKey || event.ctrlKey)) {
       event.stopPropagation();
       event.preventDefault();
       setActionBarOpen(true);
@@ -45,11 +77,20 @@ const DMpad = () => {
   };
 
   useEffect(() => {
-    document.addEventListener("keydown", handleKeys);
+    document.addEventListener('keydown', handleKeys);
     return () => {
-      document.removeEventListener("keydown", handleKeys);
+      document.removeEventListener('keydown', handleKeys);
     };
   });
+  const actions = {
+    newFile: () => {
+      setActionBarOpen(false);
+      setNewFileModalShown(true);
+    },
+    setFilename,
+    setFileList,
+  };
+  if(loading) { return <div>LOADING</div> }
   return (
     <div className="DMpad AppFrame">
       <EditorToolbar
@@ -79,13 +120,17 @@ const DMpad = () => {
         })}
       </div> */}
       <ImportModal />
+      <NewFileModal
+        shown={newFileModalShown}
+        close={() => setNewFileModalShown(false)}
+      />
       <Accounts show={accountsShow} hideModal={() => setAccountsShow(false)} />
       {actionBarOpen && (
         <ActionBar
           document={currentDocument}
           fileList={fileList}
-          setFileList={setFileList}
-          setFilename={setFilename}
+          actions={actions}
+          filename={filename}
         />
       )}
     </div>

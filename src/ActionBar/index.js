@@ -1,27 +1,25 @@
-import React, { useState } from "react";
-import "./ActionBar.scss";
+import React, { useState } from 'react';
+import { currentUser } from '../Accounts/auth';
+import './ActionBar.scss';
 
-const ActionBar = ({ document, setFileList, setFilename, fileList }) => {
-  console.log(fileList.files);
+const ActionBar = ({ document, fileList, filename, actions }) => {
+  console.log(document);
+  const user = currentUser();
   const fileListCommands = fileList.files.map((file) => ({
     name: `Switch to ${file}`,
+    file: file,
     args: [],
     action: () => {
-      setFilename(file);
+      actions.setFilename(file);
     },
-  }));
+  })).filter(f => f.file !== filename);
   const newFile = {
-    name: "New File...",
-    args: ["filename"],
-    action: (filename) => () => {
-      if (fileList.includes(filename)) {
-        return new Error("File already exists!");
-      }
-      setFileList([...fileList, filename]);
-    },
+    name: 'New File...',
+    args: ['filename'],
+    action: actions.newFile  
   };
   const [currentCommand, setCurrentCommand] = useState(null);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const commands = [newFile];
   const allContent = [...commands, ...fileListCommands];
   return (
@@ -37,18 +35,20 @@ const ActionBar = ({ document, setFileList, setFilename, fileList }) => {
           aria-label="Find anything"
           autoFocus={true}
         />
-        {search &&
-          allContent
-            .reduce((acc, content) => {
-              if (content.name.includes(search)) {
-                return [
-                  ...acc,
-                  <button onClick={content.action}>{content.name}</button>,
-                ];
-              }
-              return acc;
-            }, [])
-            .slice(0, 10)}
+        {allContent
+          .reduce((acc, content) => {
+            if (
+              !search ||
+              content.name.toLowerCase().includes(search.toLowerCase())
+            ) {
+              return [
+                ...acc,
+                <button onClick={content.action}>{content.name}</button>,
+              ];
+            }
+            return acc;
+          }, [])
+          .slice(0, 10)}
       </div>
     </>
   );

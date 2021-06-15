@@ -102,6 +102,11 @@
     cursor: pointer;
     border: 1px solid transparent;
 
+    &.nopad {
+      padding: 0;
+      margin: 0;
+    }
+
     &:hover {
       border: 1px solid var(--c-gray);
     }
@@ -131,7 +136,7 @@
 
 .c-EditorToolbar-aboutModal {
   .logo {
-    width: 50px;
+    width: 100px;
   }
 
   padding: 16px;
