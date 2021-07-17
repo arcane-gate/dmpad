@@ -1,0 +1,29 @@
+.c-AccountsModal {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30vw;
+
+  .c-AccountsModal-tabs {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1em;
+
+    button {
+      flex: 1 0 50%;
+      font-size: 1em;
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+
+      &.active {
+        border-bottom: 3px solid var(--c-blue);
+      }
+    }
+  }
+}

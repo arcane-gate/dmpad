@@ -13,7 +13,6 @@ import "./CheckItem.scss";
 const CheckItem = ({ node, updateAttributes }) => {
   const [checked, setChecked] = useState(node.attrs.checked);
   const onClick = () => {
-    console.log("click", checked);
     setChecked(!checked);
     updateAttributes({ checked: !checked });
     //     Object

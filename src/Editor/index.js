@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import "./Editor.scss";
+import { isEqual } from "lodash";
+import { FilesystemContext } from "../Filesystem";
 
-import EditorToolbar from "../EditorToolbar";
 import Menu from "./Menu";
 
 /* tiptap imports */
@@ -47,12 +48,12 @@ const extensions = ExtensionManager(
   DescriptiveText
 );
 
-const Editor = ({
-  filename,
-  currentDocument,
-  setCurrentDocument,
-  autoSaving,
-}) => {
+const Editor = () => {
+  const {
+    currentDocument,
+    setCurrentDocument,
+    saving: autoSaving,
+  } = useContext(FilesystemContext);
   const editor = useEditor({
     extensions,
     editorProps: {
@@ -62,21 +63,23 @@ const Editor = ({
     },
     onUpdate() {
       const json = this.getJSON();
-      setCurrentDocument((state) => ({ ...state, content: json }));
+      setCurrentDocument(json);
     },
     content: currentDocument.content,
   });
 
+  useEffect(() => {
+    if (editor) {
+      const json = editor.getJSON();
+      if (!isEqual(json, currentDocument.content)) {
+        editor.commands.setContent(currentDocument.content);
+      }
+    }
+  }, [currentDocument]);
+
   return (
     <>
       <Menu editor={editor} />
-      <EditorToolbar
-        filename={filename}
-        autoSaving={autoSaving}
-        editor={editor}
-        currentDocument={currentDocument}
-        setCurrentDocument={setCurrentDocument}
-      />
       <EditorContent editor={editor} />
     </>
   );

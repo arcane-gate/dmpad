@@ -6,6 +6,11 @@ body {
   position: relative;
   font-family: var(--ui-font);
   font-size: 14px;
+  color: var(--text-color);
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--header-font);
 }
 
 form {
@@ -41,4 +46,15 @@ button {
   &:hover {
     box-shadow: var(--main-shadow);
   }
+}
+
+p {
+ width: 100%;
+ max-width: 60em;
+}
+
+hr {
+  height: 1px;
+  width: 100%;
+  border-bottom: 1px solid var(--c-light-gray);
 }

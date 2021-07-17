@@ -1,0 +1,116 @@
+@import "../styles/ats/ats";
+
+.c-Filesystem-showButton {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  box-shadow: var(--main-shadow);
+  border: 1px solid var(--c-gray);
+  background: #fff;
+}
+
+.c-Filesystem {
+  position: fixed;
+  top: 0;
+  right: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  height: 100vh;
+  background: var(--c-white);
+  width: 15vw;
+  margin: 0;
+  padding: 24px;
+  box-shadow: var(--main-shadow);
+
+  .c-Filesystem-closeButton {
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    button {
+      border: none;
+      background: 0;
+    }
+  }
+
+  .c-FileToolbar {
+    display: flex;
+    justify-content: space-between;
+
+    button {
+      color: inherit;
+      background: none;
+      border: none;
+      &:hover {
+        border: none;
+        box-shadow: none;
+      }
+    }
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow-x: auto;
+    overflow-y: none;
+    width: 100%;
+    flex: 1;
+  }
+
+  .c-File {
+    flex: 0 1 40px;
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+
+    &.active {
+      color: var(--c-blue);
+      padding-left: 4px;
+    }
+
+    &:hover {
+      .c-EditFilenameButton {
+        display: block;
+      }
+    }
+
+    button {
+      color: inherit;
+      background: none;
+      border: none;
+      &:hover {
+        border: none;
+        box-shadow: none;
+      }
+    }
+
+    .c-EditFilenameButton {
+      display: none;
+    }
+
+
+    .c-FileButton {
+      flex: 1;
+      font-size: 1em;
+      padding: 4px 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin-bottom: 4px;
+
+      .anticon {
+        margin-right: 8px;
+      }
+
+    }
+  }
+}

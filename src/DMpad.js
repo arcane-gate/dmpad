@@ -1,35 +1,26 @@
-import React from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./styles/styles.scss";
 
 import Editor from "./Editor";
-import ImportModal from "./ImportModal";
+import EditorToolbar from "./EditorToolbar";
+import ImportModal from "./modals/ImportModal";
 import Accounts from "./Accounts";
-import { useEffect, useState } from "react";
-import ActionBar from "./ActionBar";
-import contextMenu from "./ContextMenu";
-import defaultState from "./defaultState";
-import createJsonSaveFile from "./hooks/useJsonSaveFile";
-import Sticker from "./VisualLayer/Sticker";
-
-const filename = "starter-doc";
-const useSaveFile = createJsonSaveFile(filename);
+import Filesystem, { FilesystemContext } from "./Filesystem";
+// import ActionBar from "./ActionBar";
+import { currentUser } from "./Accounts/auth";
 
 const DMpad = () => {
-  const [currentDocument, setCurrentDocument, autoSaving] =
-    useSaveFile(defaultState);
+  const [loading, setLoading] = useState(true);
+
   const [actionBarOpen, setActionBarOpen] = useState(false);
-  const updateSticker = (id) => (sticker) => {
-    const { visualLayerContent = [] } = currentDocument;
-    const newVisualLayerContent = [...visualLayerContent];
-    const stickerIndex = visualLayerContent.findIndex(
-      (sticker) => sticker.id === id
-    );
-    newVisualLayerContent[stickerIndex] = sticker;
-    setCurrentDocument({
-      ...currentDocument,
-      visualLayerContent: newVisualLayerContent,
-    });
+  const [accountsShow, setAccountsShow] = useState(false);
+
+  const [user, setUser] = useState(currentUser());
+
+  const onUserUpdate = () => {
+    setUser(currentUser());
   };
+
   const handleKeys = (event) => {
     if (event.key === "k" && (event.metaKey || event.ctrlKey)) {
       event.stopPropagation();
@@ -44,32 +35,35 @@ const DMpad = () => {
       document.removeEventListener("keydown", handleKeys);
     };
   });
+
   return (
     <div className="DMpad AppFrame">
-      <Editor
-        currentDocument={currentDocument}
-        setCurrentDocument={setCurrentDocument}
-        autoSaving={autoSaving}
-        filename={filename}
-      />
-      {/* <div className="c-VisualLayer">
-        {currentDocument.visualLayerContent.map((elem) => {
-          if (elem.type === "sticker") {
-            return (
-              <Sticker
-                key={elem.id}
-                sticker={elem}
-                updateSticker={updateSticker(elem.id)}
-              />
-            );
-          }
-        })}
-      </div> */}
-      <ImportModal />
-      <Accounts />
-      {actionBarOpen && <ActionBar />}
+      <Filesystem setLoading={setLoading}>
+        {loading && <div>LOADING</div>}
+        {!loading && (
+          <>
+            <EditorToolbar setShowAccounts={setAccountsShow} />
+            <Editor />
+            <ImportModal />
+            <Accounts
+              show={accountsShow}
+              hideModal={() => setAccountsShow(false)}
+              onUserUpdate={onUserUpdate}
+            />
+          </>
+        )}
+      </Filesystem>
     </div>
   );
 };
 
 export default DMpad;
+
+// {actionBarOpen && (
+//   <ActionBar
+//     document={currentDocument}
+//     fileList={fileList}
+//     actions={actions}
+//     filename={filename}
+//   />
+// )}

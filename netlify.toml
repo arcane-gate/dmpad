@@ -1,0 +1,5 @@
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "https://goofy-easley-6ed157.netlify.app/"
+		Access-Control-Allow-Methods= "*"

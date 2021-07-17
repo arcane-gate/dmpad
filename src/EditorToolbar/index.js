@@ -1,29 +1,30 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import {
-  QuestionOutlined,
+  // QuestionOutlined,
   SaveOutlined,
   ExportOutlined,
   ImportOutlined,
-  RedoOutlined,
-  UndoOutlined,
-  SmileOutlined,
+  // RedoOutlined,
+  // UndoOutlined,
+  // SmileOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import logo from "../logo.svg";
 import "./EditorToolbar.scss";
 import Modal from "../components/Modal";
-import { nanoid } from "nanoid";
+// import { nanoid } from 'nanoid';
 import Tippy from "@tippyjs/react";
+import { FilesystemContext } from "../Filesystem";
 
 const reader = new FileReader();
 
-const EditorToolbar = ({
-  autoSaving,
-  editor,
-  filename,
-  currentDocument,
-  setCurrentDocument,
-}) => {
+const EditorToolbar = ({ setShowAccounts }) => {
+  const {
+    currentDocument,
+    setCurrentDocument,
+    saving: autoSaving,
+  } = useContext(FilesystemContext);
+  const filename = currentDocument?.fileName;
   const [showAboutModal, setShowAboutModal] = useState(false);
   const [showImportModal, setShowImportModal] = useState(false);
   const [validDoc, setValidDoc] = useState(false);
@@ -45,29 +46,6 @@ const EditorToolbar = ({
   const validateDoc = () => {
     setValidDoc(true);
   };
-  const addSticker = () => {
-    const referenceSize = getComputedStyle(
-      document.documentElement
-    ).getPropertyValue("--reference-size");
-    setCurrentDocument((state) => {
-      return {
-        ...state,
-        visualLayerContent: [
-          ...state.visualLayerContent,
-          {
-            id: nanoid(),
-            position: {
-              top: 0.5,
-              left: 0.5,
-              width: 200,
-            },
-            type: "sticker",
-            src: "https://imgur.com/bOWzbsl.png",
-          },
-        ],
-      };
-    });
-  };
   const importDocModal = showImportModal && (
     <Modal>
       <div className="c-EditorToolbar-importModal flow">
@@ -85,7 +63,7 @@ const EditorToolbar = ({
   );
   const aboutModal = showAboutModal && (
     <Modal>
-      <div className="c-EditorToolbar-aboutModal flow">
+      <div className="c-EditorToolbar-aboutModal flow flex[ ai-c fd-c ]">
         <img src={logo} alt="Logo" className="logo" />
         <h1>dmpad</h1>
         <p>
@@ -111,11 +89,19 @@ const EditorToolbar = ({
   };
   return (
     <div className="c-EditorToolbar">
-      {/* <Tippy interactive={true} content="Account" placement="right">
+      <Tippy interactive={true} content="About" placement="right">
+        <button
+          className="flex[ fd-c ai-c jc-c ] nopad"
+          onClick={() => setShowAboutModal(true)}
+        >
+          <img src={logo} className="logo" />
+        </button>
+      </Tippy>
+      <Tippy interactive={true} content="Account" placement="right">
         <button onClick={() => setShowAccounts(true)}>
           <UserOutlined />
         </button>
-      </Tippy> */}
+      </Tippy>
       <Tippy interactive={true} content="Export" placement="right">
         <button onClick={exportDoc}>
           <ExportOutlined />
@@ -132,14 +118,6 @@ const EditorToolbar = ({
       <div className="c-EditorToolbar-autosave flex[ fd-c ai-c jc-c ]">
         <SaveOutlined /> {autoSaving ? "Saving..." : "Saved"}
       </div>
-      <Tippy interactive={true} content="About" placement="right">
-        <button
-          className="flex[ fd-c ai-c jc-c ]"
-          onClick={() => setShowAboutModal(true)}
-        >
-          <QuestionOutlined />
-        </button>
-      </Tippy>
       {aboutModal}
       {importDocModal}
     </div>

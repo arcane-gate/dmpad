@@ -1,6 +1,6 @@
 const buildAPIResponse = (json, statusCode = 200) => ({
   statusCode,
-  body: JSON.stringify(json),
+  body: json ? "" : JSON.stringify(json),
 });
 
 module.exports = {

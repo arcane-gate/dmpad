@@ -17,6 +17,11 @@ const createDocState = (doc) => {
   };
 };
 
+export const emptyState = createDocState({
+  type: "doc",
+  content: [],
+});
+
 export default createDocState({
   type: "doc",
   content: [
