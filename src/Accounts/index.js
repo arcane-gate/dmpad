@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import classNames from 'classnames';
-import Login from './Login';
-import User from './User';
-import Signup from './Signup';
-import Modal from '../components/Modal';
-import './Accounts.scss';
-import { currentUser } from './auth';
-import { LoadingOutlined } from '@ant-design/icons';
+import React, { useState, useEffect } from "react";
+import classNames from "classnames";
+import Login from "./Login";
+import User from "./User";
+import Signup from "./Signup";
+import Modal from "../components/Modal";
+import "./Accounts.scss";
+import { currentUser } from "./auth";
+import { LoadingOutlined } from "@ant-design/icons";
 
-const Accounts = ({ tab = 'login', show = false, hideModal }) => {
+const Accounts = ({ tab = "login", show = false, hideModal, onUserUpdate }) => {
   const [selectedTab, setSelectedTab] = useState(tab);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
@@ -18,10 +18,9 @@ const Accounts = ({ tab = 'login', show = false, hideModal }) => {
     setUser(user);
   }, []);
   return (
-    show && (
-      <Modal>
-        <div className="c-AccountsModal">
-          {/* <div className="c-AccountsModal-tabs">
+    <Modal shown={show}>
+      <div className="c-AccountsModal flow">
+        {/* <div className="c-AccountsModal-tabs">
             <button
               onClick={() => setSelectedTab("signup")}
               className={classNames({ active: selectedTab === "signup" })}
@@ -35,13 +34,19 @@ const Accounts = ({ tab = 'login', show = false, hideModal }) => {
               Login
             </button>
           </div> */}
-          {user && <User user={user} close={hideModal} />}
-          {loading && <LoadingOutlined />}
-          {!user && selectedTab === 'login' && <Login />}
-          {/* {selectedTab === "signup" && <Signup />} */}
-        </div>
-      </Modal>
-    )
+        <p>
+          Accounts don't do anything yet, but feel free to create one anyway!
+        </p>
+        <button onClick={hideModal}>Close</button>
+        <hr />
+        {user && <User user={user} close={hideModal} />}
+        {loading && <LoadingOutlined />}
+        {!user && selectedTab === "login" && (
+          <Login onUserUpdate={onUserUpdate} />
+        )}
+        {/* {selectedTab === "signup" && <Signup />} */}
+      </div>
+    </Modal>
   );
 };
 

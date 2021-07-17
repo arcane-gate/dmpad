@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
-import { JSONCrush, JSONUncrush } from 'jsoncrush';
 import createPersistedState from 'use-persisted-state';
 import { useDebouncedCallback } from 'use-debounce';
-import { CaretDoubleDown } from 'phosphor-react';
 import { currentUser } from '../Accounts/auth';
 import { createClient } from '@supabase/supabase-js';
 import { SUPABASE_KEY, SUPABASE_URL } from '../Accounts/config';
@@ -73,12 +71,15 @@ const createJsonSaveFile = (filename, debounce = 1000) => {
       }
     };
 
-    const debouncedUpdateFileState = useDebouncedCallback((json, updateRemote = true) => {
-      setAutoSaving(true);
-      setFileState(json, updateRemote).then(() => {
-        setAutoSaving(false);
-      });
-    }, debounce);
+    const debouncedUpdateFileState = useDebouncedCallback(
+      (json, updateRemote = true) => {
+        setAutoSaving(true);
+        setFileState(json, updateRemote).then(() => {
+          setAutoSaving(false);
+        });
+      },
+      debounce
+    );
 
     const updateState = (update, updateRemote = true) => {
       let json = update;
@@ -112,9 +113,8 @@ const createJsonSaveFile = (filename, debounce = 1000) => {
           })
           .subscribe();
       }
-      return () => supabase.removeSubscription(subscribe)
+      return () => supabase.removeSubscription(subscribe);
     }, [filename]);
-
 
     // update document to use new style of JSON
     if (!fileState.hasOwnProperty('content')) {

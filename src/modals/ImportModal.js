@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import ReactDOM from "react-dom";
-import ddbImport from "./import";
-import Modal from "./components/Modal";
+import ddbImport from "../import";
+import Modal from "../components/Modal";
 
 const ImportModal = () => {
   const [importUrl, setImportUrl] = useState("");

@@ -1,29 +1,30 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext } from "react";
 import {
-  QuestionOutlined,
+  // QuestionOutlined,
   SaveOutlined,
   ExportOutlined,
   ImportOutlined,
-  RedoOutlined,
-  UndoOutlined,
-  SmileOutlined,
+  // RedoOutlined,
+  // UndoOutlined,
+  // SmileOutlined,
   UserOutlined,
-} from '@ant-design/icons';
-import logo from '../logo.svg';
-import './EditorToolbar.scss';
-import Modal from '../components/Modal';
-import { nanoid } from 'nanoid';
-import Tippy from '@tippyjs/react';
+} from "@ant-design/icons";
+import logo from "../logo.svg";
+import "./EditorToolbar.scss";
+import Modal from "../components/Modal";
+// import { nanoid } from 'nanoid';
+import Tippy from "@tippyjs/react";
+import { FilesystemContext } from "../Filesystem";
 
 const reader = new FileReader();
 
-const EditorToolbar = ({
-  autoSaving,
-  filename,
-  currentDocument,
-  setCurrentDocument,
-  setShowAccounts,
-}) => {
+const EditorToolbar = ({ setShowAccounts }) => {
+  const {
+    currentDocument,
+    setCurrentDocument,
+    saving: autoSaving,
+  } = useContext(FilesystemContext);
+  const filename = currentDocument?.fileName;
   const [showAboutModal, setShowAboutModal] = useState(false);
   const [showImportModal, setShowImportModal] = useState(false);
   const [validDoc, setValidDoc] = useState(false);
@@ -45,36 +46,13 @@ const EditorToolbar = ({
   const validateDoc = () => {
     setValidDoc(true);
   };
-  const addSticker = () => {
-    const referenceSize = getComputedStyle(
-      document.documentElement
-    ).getPropertyValue('--reference-size');
-    setCurrentDocument((state) => {
-      return {
-        ...state,
-        visualLayerContent: [
-          ...state.visualLayerContent,
-          {
-            id: nanoid(),
-            position: {
-              top: 0.5,
-              left: 0.5,
-              width: 200,
-            },
-            type: 'sticker',
-            src: 'https://imgur.com/bOWzbsl.png',
-          },
-        ],
-      };
-    });
-  };
   const importDocModal = showImportModal && (
     <Modal>
       <div className="c-EditorToolbar-importModal flow">
         <h1>Import a file...</h1>
         <form>
           <input type="file" ref={uploadDocInput} onChange={validateDoc} />
-          {validDoc ? 'Looks good!' : 'Oops, looks like that file is invalid'}
+          {validDoc ? "Looks good!" : "Oops, looks like that file is invalid"}
         </form>
         <button disabled={!validDoc} onClick={importDoc}>
           import
@@ -101,10 +79,10 @@ const EditorToolbar = ({
   );
   const exportDoc = () => {
     const file = new Blob([JSON.stringify(currentDocument)], {
-      type: 'text/json',
+      type: "text/json",
     });
     const objectUrl = window.URL.createObjectURL(file);
-    const a = document.createElement('a');
+    const a = document.createElement("a");
     a.href = objectUrl;
     a.download = `${filename}.json`;
     a.click();
@@ -138,7 +116,7 @@ const EditorToolbar = ({
         <SmileOutlined />
       </button> */}
       <div className="c-EditorToolbar-autosave flex[ fd-c ai-c jc-c ]">
-        <SaveOutlined /> {autoSaving ? 'Saving...' : 'Saved'}
+        <SaveOutlined /> {autoSaving ? "Saving..." : "Saved"}
       </div>
       {aboutModal}
       {importDocModal}
