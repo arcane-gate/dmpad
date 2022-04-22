@@ -1,0 +1,32 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+datasource db {
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+model User {
+  id        String     @id @default(uuid())
+  username  String
+  did       String
+  documents Document[]
+}
+
+model Block {
+  id         String   @id @default(uuid())
+  content    Json
+  documentId String
+  document   Document @relation(fields: [documentId], references: [id])
+}
+
+model Document {
+  id       String  @id @default(uuid())
+  title    String
+  blocks   Block[]
+  authorId String
+  author   User    @relation(fields: [authorId], references: [id])
+}

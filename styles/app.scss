@@ -1,0 +1,129 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+
+@import "./ats";
+@import "./generics";
+@import "./blocks";
+
+.editor.ProseMirror {
+  .dice-notation {
+    color: var(--blue-100);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px 0 2px;
+    margin: 0 2px;
+    border-radius: 1px;
+    background-color: var(--blue-20);
+  }
+
+  .attribute-block {
+    margin: 16px 0;
+    padding: 8px 0;
+    border-top: 1px solid var(--c-gray);
+    border-bottom: 1px solid var(--c-gray);
+  }
+
+  .attribute-block-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .attribute-block-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+  }
+
+  .stat-block {
+    background: var(--lightGray);
+    border: 1px solid var(--gray);
+    border-radius: 2px;
+    padding: 16px;
+    position: relative;
+
+    .label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 15px;
+      background-color: var(--c-black);
+      letter-spacing: 1px;
+      font-weight: bold;
+      color: var(--c-white);
+      position: absolute;
+      top: 0;
+      padding: 8px;
+    }
+
+    > .content {
+      width: 100%;
+      margin-top: 24px;
+      column-count: 2;
+      column-gap: 16px;
+      padding: 16px;
+    }
+  }
+
+  .last-focused-placeholder {
+    position: relative;
+    &:after {
+      content: "Type / for more";
+      position: absolute;
+      top: 2px;
+      left: 4px;
+      color: var(--gray);
+    }
+  }
+
+  .descriptive-text {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0;
+    border-right: 3px solid var(--black);
+    border-left: 3px solid var(--black);
+    background: var(--lightGray);
+    padding: 8px 1em;
+
+    > .content {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  ul.check-list {
+    list-style: none;
+    padding: 0;
+
+    li {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 4px;
+
+      > label {
+        flex: 0 0 auto;
+        margin-right: 0.5em;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      ul {
+        margin-top: 4px;
+      }
+    }
+  }
+
+  .title {
+    font-size: 3.5em;
+  }
+}
