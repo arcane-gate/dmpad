@@ -1,26 +1,34 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, ReactElement } from "react";
 import { Node, mergeAttributes } from "@tiptap/core";
 import {
   ReactNodeViewRenderer,
   NodeViewWrapper,
   NodeViewContent,
 } from "@tiptap/react";
-import { Emoji, Picker } from "emoji-mart";
+import { Emoji, EmojiData, Picker } from "emoji-mart";
 import Mention from "@tiptap/extension-mention";
 import { ReactRenderer } from "@tiptap/react";
-import tippy from "tippy.js";
+import tippy, { Instance as TippyInstance } from "tippy.js";
 import "tippy.js/themes/material.css";
 import "emoji-mart/css/emoji-mart.css";
 import { PluginKey } from "prosemirror-state";
 
-const MojiPicker = ({ props, editor, command }) => {
-  const addEmoji = (emoji) => {
+const MojiPicker = ({ command }: { command: (emoji: EmojiData) => void }) => {
+  const addEmoji = (emoji: EmojiData) => {
     command(emoji);
   };
   return <Picker title="dmpad" autoFocus={true} onSelect={addEmoji} />;
 };
 
-const EmojiNodeRender = (props) => {
+type EmojiNodeRenderProps = {
+  node: {
+    attrs: {
+      emoji: EmojiData;
+    };
+  };
+};
+
+const EmojiNodeRender = (props: EmojiNodeRenderProps) => {
   const { emoji } = props.node.attrs;
   const element = useRef(null);
   const [size, setSize] = useState(24);
@@ -35,20 +43,17 @@ const EmojiNodeRender = (props) => {
       }, 0);
     }
   }, [element]);
+  const emote = Emoji({
+    html: true,
+    set: "apple",
+    emoji: emoji,
+    size,
+  });
   return (
     <NodeViewWrapper as="span">
-      <span
-        ref={element}
-        contentEditable={false}
-        dangerouslySetInnerHTML={{
-          __html: Emoji({
-            html: true,
-            set: "apple",
-            emoji: emoji.id,
-            size,
-          }),
-        }}
-      />
+      <span ref={element} contentEditable={false}>
+        {emote}
+      </span>
     </NodeViewWrapper>
   );
 };
@@ -100,12 +105,11 @@ const Emote = Mention.configure({
         .run();
     },
     render: () => {
-      let reactRenderer;
-      let popup;
+      let reactRenderer: ReactRenderer<HTMLDivElement>;
+      let popup: TippyInstance[];
       return {
         onStart: (props) => {
           reactRenderer = new ReactRenderer(MojiPicker, {
-            parent: this,
             props,
             editor: props.editor,
           });
@@ -127,9 +131,9 @@ const Emote = Mention.configure({
             getReferenceClientRect: props.clientRect,
           });
         },
-        onKeyDown(props) {
-          return reactRenderer.ref?.onKeyDown(props);
-        },
+        // onKeyDown(props) {
+        //   return reactRenderer.ref?.onKeyDown(props);
+        // },
         onExit() {
           if (popup && popup[0]) popup[0].destroy();
           if (reactRenderer) reactRenderer.destroy();

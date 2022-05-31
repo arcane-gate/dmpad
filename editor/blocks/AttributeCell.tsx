@@ -5,9 +5,14 @@ import {
   NodeViewContent,
 } from "@tiptap/react";
 import React from "react";
-import styled from "styled-components";
 
-const AttributeCell = ({ node }) => {
+type NodeType = {
+  attrs: {
+    name: string;
+  };
+};
+
+const AttributeCell = ({ node }: { node: NodeType }) => {
   const { name } = node.attrs;
   return (
     <NodeViewWrapper as="div" className="attribute-block-cell">

@@ -6,6 +6,10 @@ import { Extension, ReactRenderer } from "@tiptap/react";
 import baseSlashCommands from "./slashCommands";
 import { PluginKey } from "prosemirror-state";
 
+// type PadExtension = Extension & {
+//   slash: 
+// }
+
 const configureSlashCommand = (extensions) =>
   Mention.configure({
     suggestion: {
@@ -26,7 +30,7 @@ const configureSlashCommand = (extensions) =>
         );
       },
       render: () => {
-        let reactRenderer;
+        let reactRenderer: ReactRenderer;
         let popup;
         return {
           onStart: (props) => {

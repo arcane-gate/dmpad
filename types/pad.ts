@@ -1,8 +1,8 @@
-import { RemirrorContentType } from "remirror";
+import { Content } from "@tiptap/react";
 
 export type Pad = {
   title: string;
-  doc: RemirrorContentType;
+  doc: Content;
   headerImage?: string;
   icon?: string;
 };

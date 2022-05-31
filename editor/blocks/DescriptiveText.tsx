@@ -3,6 +3,8 @@ import {
   ReactNodeViewRenderer,
   NodeViewWrapper,
   NodeViewContent,
+  Editor,
+  Range,
 } from "@tiptap/react";
 import React from "react";
 import { CompassOutlined } from "@ant-design/icons";
@@ -15,14 +17,11 @@ const DescriptiveText = () => {
   );
 };
 
-export default {
+const DescriptiveTextExtension = {
   node: Node.create({
     name: "descriptiveText",
     group: "block",
     content: "block*",
-    defaultOptions: {
-      HTMLAttributes: {},
-    },
     defining: true,
     parseHTML() {
       return [
@@ -47,7 +46,15 @@ export default {
         <CompassOutlined /> Descriptive Text
       </span>
     ),
-    command: ({ editor, range, props }) => {
+    command: ({
+      editor,
+      range,
+      props,
+    }: {
+      editor: Editor;
+      range: Range;
+      props: Record<string, any>;
+    }) => {
       editor
         .chain()
         .focus()
@@ -63,3 +70,5 @@ export default {
     },
   },
 };
+
+export default DescriptiveTextExtension;

@@ -3,7 +3,9 @@ import {
   FontSizeOutlined,
   BoldOutlined,
   ItalicOutlined,
+  CheckOutlined,
 } from "@ant-design/icons";
+import { Range, Editor } from "@tiptap/react";
 
 const baseSlashCommands = [
   {
@@ -13,7 +15,7 @@ const baseSlashCommands = [
         <FontSizeOutlined /> Header 1
       </span>
     ),
-    command: ({ editor, range }) => {
+    command: ({ editor, range }: { editor: Editor; range: Range }) => {
       editor
         .chain()
         .focus()
@@ -29,7 +31,7 @@ const baseSlashCommands = [
         <FontSizeOutlined /> Header 2
       </span>
     ),
-    command: ({ editor, range }) => {
+    command: ({ editor, range }: { editor: Editor; range: Range }) => {
       editor
         .chain()
         .focus()
@@ -45,7 +47,7 @@ const baseSlashCommands = [
         <BoldOutlined /> Bold
       </span>
     ),
-    command: ({ editor, range }) => {
+    command: ({ editor, range }: { editor: Editor; range: Range }) => {
       editor.chain().focus().deleteRange(range).setMark("bold").run();
     },
   },
@@ -56,8 +58,19 @@ const baseSlashCommands = [
         <ItalicOutlined /> Italic
       </span>
     ),
-    command: ({ editor, range }) => {
+    command: ({ editor, range }: { editor: Editor; range: Range }) => {
       editor.chain().focus().deleteRange(range).setMark("italic").run();
+    },
+  },
+  {
+    title: "checklist",
+    element: (
+      <span>
+        <CheckOutlined /> Task List
+      </span>
+    ),
+    command: ({ editor, range }: { editor: Editor; range: Range }) => {
+      editor.commands.toggleTaskList();
     },
   },
 ];

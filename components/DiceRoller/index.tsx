@@ -62,12 +62,12 @@ type Rolls = Array<{
 
 const DiceRoller = () => {
   const [rolls, setRolls] = useState<Rolls>([]);
-  const createRoll = (e: { detail: string }) => {
-    const rollText = e.detail;
+  const createRoll = ((e: CustomEvent) => {
+    const rollText: string = e.detail;
     if (!rollText) return;
     const { result } = roll.roll(rollText);
     setRolls([...rolls, { rollText, result }]);
-  };
+  }) as EventListener;
   useEffect(() => {
     document.addEventListener("rollDice", createRoll);
     return () => document.removeEventListener("rollDice", createRoll);

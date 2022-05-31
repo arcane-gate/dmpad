@@ -1,4 +1,5 @@
-import { Node, mergeAttributes } from "@tiptap/core";
+import { Node, mergeAttributes, Editor } from "@tiptap/core";
+import { Range } from "@tiptap/react";
 import React from "react";
 import { FontSizeOutlined } from "@ant-design/icons";
 import AttributeRow from "./AttributeRow";
@@ -37,7 +38,7 @@ const AttributeBlock = {
         <FontSizeOutlined /> Attributes
       </span>
     ),
-    command: ({ editor, range }) => {
+    command: ({ editor, range }: { editor: Editor; range: Range }) => {
       editor
         .chain()
         .focus()

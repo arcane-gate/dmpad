@@ -1,10 +1,13 @@
+import React from "react";
 import { Node, mergeAttributes } from "@tiptap/core";
 import {
   ReactNodeViewRenderer,
   NodeViewWrapper,
   NodeViewContent,
+  Editor,
+  Range,
 } from "@tiptap/react";
-import React from "react";
+
 // import Icon from "../../components/Icon";
 
 const StatBlock = () => {
@@ -18,14 +21,11 @@ const StatBlock = () => {
   );
 };
 
-export default {
+const StatBlockExtension = {
   node: Node.create({
     name: "statBlock",
     group: "block",
     content: "block*",
-    defaultOptions: {
-      HTMLAttributes: {},
-    },
     defining: true,
     parseHTML() {
       return [
@@ -55,7 +55,15 @@ export default {
         Stat Block
       </span>
     ),
-    command: ({ editor, range, props }) => {
+    command: ({
+      editor,
+      range,
+      props,
+    }: {
+      editor: Editor;
+      range: Range;
+      props: Record<string, any>;
+    }) => {
       editor
         .chain()
         .focus()
@@ -68,8 +76,10 @@ export default {
         ])
         .run();
     },
-    allow: ({ editor, range }) => {
+    allow: ({ editor, range }: { editor: Editor; range: Range }) => {
       return editor.can().insertContentAt(range, { type: "statBlock" });
     },
   },
 };
+
+export default StatBlockExtension;

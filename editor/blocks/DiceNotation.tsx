@@ -1,6 +1,7 @@
 import { Mark, markPasteRule, mergeAttributes } from "@tiptap/core";
 import { Plugin, PluginKey } from "prosemirror-state";
 import { Decoration, DecorationSet } from "prosemirror-view";
+import { Node as ProsemirrorNode } from "prosemirror-model";
 
 import Roll from "roll";
 
@@ -30,10 +31,13 @@ export const DiceNotation = Mark.create({
 
   inclusive: false,
 
-  defaultOptions: {
-    rollOnClick: true,
-    createOnPaste: true,
-    createOnType: true,
+  addOptions() {
+    return {
+      ...this.parent?.(),
+      rollOnClick: true,
+      createOnPaste: true,
+      createOnType: true,
+    };
   },
 
   parseHTML() {
@@ -54,11 +58,11 @@ export const DiceNotation = Mark.create({
 
   addProseMirrorPlugins() {
     const plugins = [];
-    const findDiceNotations = (doc) => {
-      const result = [];
+    const findDiceNotations = (doc: ProsemirrorNode) => {
+      const result: Array<{ from: number; to: number }> = [];
       doc.descendants((node, pos) => {
         if (node.isText && node.text) {
-          for (const match of node.text.matchAll(diceRegex)) {
+          for (const match of Array.from(node.text.matchAll(diceRegex))) {
             if (match.groups?.dice && isNaN(Number(match.groups.dice))) {
               const diceIndex =
                 (match?.index || 0) + match[0].indexOf(match.groups.dice);
@@ -74,8 +78,8 @@ export const DiceNotation = Mark.create({
       return result;
     };
 
-    const diceDecorations = (doc) => {
-      const decorations = [];
+    const diceDecorations = (doc: ProsemirrorNode) => {
+      const decorations: Decoration[] = [];
       findDiceNotations(doc).forEach((dice) => {
         decorations.push(
           Decoration.inline(dice.from, dice.to, {
@@ -109,12 +113,13 @@ export const DiceNotation = Mark.create({
         new Plugin({
           key: new PluginKey("handleClickDiceNotation"),
           props: {
-            handleClick: (view, pos, event) => {
+            handleClick: (_view, _pos, event) => {
               event.preventDefault();
               event.stopPropagation();
-              const rollText = event.target?.textContent.trim();
-              const attrs = this.editor.getAttributes("dice-notation");
-              const closest = event.target?.closest(".dice-notation");
+              const domElement = event.target as Element;
+              const rollText = domElement?.textContent?.trim();
+              // const attrs = this.editor.getAttributes("dice-notation");
+              const closest = domElement?.closest(".dice-notation");
               if (!rollText || !closest) return false;
 
               if (event.metaKey || event.ctrlKey) {

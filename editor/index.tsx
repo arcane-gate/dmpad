@@ -12,6 +12,7 @@ import Highlight from "@tiptap/extension-highlight";
 import Typography from "@tiptap/extension-typography";
 import Link from "@tiptap/extension-link";
 import Image from "@tiptap/extension-image";
+import Placeholder from "@tiptap/extension-placeholder";
 
 /* Extensions */
 import ExtensionManager from "./ExtensionManager";
@@ -19,18 +20,20 @@ import ActionItem from "./blocks/ActionItem";
 import DescriptiveText from "./blocks/DescriptiveText";
 import StatBlock from "./blocks/StatBlock";
 import AttributeBlock from "./blocks/AttributeBlock";
-import DDBImport from "./blocks/DDBImport";
+// import DDBImport from "./blocks/DDBImport";
 import DiceNotation from "./blocks/DiceNotation";
 import Title from "./blocks/Title";
-import CheckList from "./blocks/CheckList";
-import CheckItem from "./blocks/CheckItem";
-import Placeholder from "./blocks/Placeholder";
 // Stickers aren't quite working
 // import Sticker from "./blocks/Sticker";
 import Emote, { EmojiNode } from "./blocks/Emote";
+import TaskList from "@tiptap/extension-task-list";
+import TaskItem from "@tiptap/extension-task-item";
 
 const extensions: Extension[] = ExtensionManager(
   StarterKit,
+  Placeholder.configure({
+    placeholder: "Type / for more",
+  }),
   Title,
   Highlight,
   Typography,
@@ -41,10 +44,15 @@ const extensions: Extension[] = ExtensionManager(
   DiceNotation,
   Emote,
   EmojiNode,
-  CheckList,
-  CheckItem,
+  TaskList.configure({
+    HTMLAttributes: {
+      class: "check-list",
+    },
+  }),
+  TaskItem.configure({
+    nested: true,
+  }),
   AttributeBlock,
-  Placeholder,
   DescriptiveText
 );
 

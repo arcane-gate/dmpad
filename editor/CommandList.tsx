@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import styled from "styled-components";
 
 const StyledCommandList = styled.div`
@@ -36,20 +36,27 @@ const StyledCommandList = styled.div`
   }
 `;
 
-class CommandList extends React.Component {
+type Item = { title: string; element: ReactNode };
+
+type CommandListProps = {
+  items: Array<Item>;
+  command: (item: Item) => void;
+};
+
+class CommandList extends React.Component<CommandListProps> {
   state = {
     selectedIndex: 0,
   };
 
-  componentDidUpdate(oldProps) {
-    if (this.props.items !== oldProps.items) {
+  componentDidUpdate(oldProps: CommandListProps) {
+    if (this.props.items !== oldProps?.items) {
       this.setState({
         selectedIndex: 0,
       });
     }
   }
 
-  onKeyDown({ event }) {
+  onKeyDown({ event }: { event: KeyboardEvent }) {
     if (event.key === "ArrowUp") {
       this.upHandler();
       return true;
@@ -86,7 +93,7 @@ class CommandList extends React.Component {
     this.selectItem(this.state.selectedIndex);
   }
 
-  selectItem(index) {
+  selectItem(index: number) {
     const item = this.props.items[index];
 
     if (item) {

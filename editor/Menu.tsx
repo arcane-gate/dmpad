@@ -1,5 +1,5 @@
 import React from "react";
-import { BubbleMenu } from "@tiptap/react";
+import { BubbleMenu, Editor } from "@tiptap/react";
 import {
   BoldOutlined,
   ItalicOutlined,
@@ -32,7 +32,7 @@ const StyledBubbleMenu = styled(BubbleMenu)`
   }
 `;
 
-const Menu = ({ editor }) => {
+const Menu = ({ editor }: { editor: Editor }) => {
   if (!editor) {
     return null;
   }

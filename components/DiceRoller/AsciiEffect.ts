@@ -126,7 +126,7 @@ export default class AsciiEffect {
       this.width = w;
       this.height = h;
 
-      this.renderer.setSize(w, h);
+      this.renderer?.setSize(w, h);
 
       this.initAsciiSize();
     };

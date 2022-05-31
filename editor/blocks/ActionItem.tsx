@@ -1,8 +1,9 @@
-import { Node, mergeAttributes } from "@tiptap/core";
+import { Node, mergeAttributes, Editor } from "@tiptap/core";
 import {
   ReactNodeViewRenderer,
   NodeViewWrapper,
   NodeViewContent,
+  Range,
 } from "@tiptap/react";
 import React from "react";
 import { BulbOutlined } from "@ant-design/icons";
@@ -47,7 +48,7 @@ const ActionItem = () => {
   );
 };
 
-export default {
+const ActionItemExtension = {
   node: Node.create({
     name: "actionItem",
     group: "block",
@@ -75,8 +76,10 @@ export default {
         <BulbOutlined /> Action Item
       </span>
     ),
-    command: ({ editor, range }) => {
+    command: ({ editor, range }: { editor: Editor; range: Range }) => {
       editor.chain().focus().deleteRange(range).setNode("actionItem", {}).run();
     },
   },
 };
+
+export default ActionItemExtension;

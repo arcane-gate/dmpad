@@ -3,6 +3,8 @@ import {
   ReactNodeViewRenderer,
   NodeViewWrapper,
   NodeViewContent,
+  Range,
+  Editor,
 } from "@tiptap/react";
 import React from "react";
 import { FontSizeOutlined } from "@ant-design/icons";
@@ -17,7 +19,7 @@ const Title = () => {
   );
 };
 
-export default {
+const TitleExtension = {
   node: Node.create({
     name: "title",
     group: "block",
@@ -45,8 +47,10 @@ export default {
         <FontSizeOutlined /> Title
       </span>
     ),
-    command: ({ editor, range }) => {
+    command: ({ editor, range }: { editor: Editor; range: Range }) => {
       editor.chain().focus().deleteRange(range).setNode("title", {}).run();
     },
   },
 };
+
+export default TitleExtension;
