@@ -28,6 +28,7 @@ import Title from "./blocks/Title";
 import Emote, { EmojiNode } from "./blocks/Emote";
 import TaskList from "@tiptap/extension-task-list";
 import TaskItem from "@tiptap/extension-task-item";
+import { Pad } from "../types/pad";
 
 const extensions: Extension[] = ExtensionManager(
   StarterKit,
@@ -56,7 +57,12 @@ const extensions: Extension[] = ExtensionManager(
   DescriptiveText
 );
 
-const Editor = ({ pad, updatePad }) => {
+type EditorProps = {
+  pad: Pad;
+  updatePad: (pad: Pad) => void;
+};
+
+const Editor = ({ pad, updatePad }: EditorProps) => {
   const editor = useEditor({
     extensions,
     editorProps: {
@@ -79,6 +85,8 @@ const Editor = ({ pad, updatePad }) => {
       }
     }
   }, [pad, editor]);
+
+  if (!editor) return null;
 
   return (
     <StyledEditor>

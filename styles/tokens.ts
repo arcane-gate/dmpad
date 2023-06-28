@@ -23,7 +23,7 @@ export const white = "#fff";
 export const lightGray = "#fcfafc";
 export const gray = '#c1c1c1';
 export const black = '#222';
-export const blues = makeColors('blue', 269, 99, 46);
+export const blues = makeColors('blue', 230, 99, 46);
 
 /* Borders */
 
